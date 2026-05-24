@@ -1,0 +1,105 @@
+:host {
+	--shell-bg: #f4f6f8;
+	--surface: #ffffff;
+	--surface-strong: #1f2937;
+	--surface-border: #d1d5db;
+	--text-primary: #111827;
+	--text-inverse: #f9fafb;
+	--accent: #0f766e;
+
+	display: block;
+	height: 100dvh;
+	color: var(--text-primary);
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.app-shell {
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	height: 100%;
+	background: linear-gradient(180deg, #eef2ff 0%, var(--shell-bg) 30%, #e5e7eb 100%);
+}
+
+.app-header {
+	position: sticky;
+	top: 0;
+	z-index: 10;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	min-height: 4rem;
+	padding: 0.75rem 1rem;
+	background: var(--surface-strong);
+	color: var(--text-inverse);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.brand {
+	font-size: 1.05rem;
+	font-weight: 700;
+	letter-spacing: 0.02em;
+}
+
+.app-nav {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.app-nav a {
+	color: var(--text-inverse);
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 0.95rem;
+	padding: 0.4rem 0.75rem;
+	border: 1px solid rgba(255, 255, 255, 0.22);
+	border-radius: 999px;
+	transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.app-nav a:hover,
+.app-nav a:focus-visible {
+	background-color: rgba(255, 255, 255, 0.14);
+	border-color: rgba(255, 255, 255, 0.5);
+	outline: none;
+}
+
+.app-nav a.is-active {
+	background-color: var(--accent);
+	border-color: var(--accent);
+}
+
+.app-main {
+	min-height: 0;
+	overflow: auto;
+	padding: 1rem;
+}
+
+.app-footer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 2.25rem;
+	padding: 0.25rem 0.75rem;
+	background: var(--surface);
+	border-top: 1px solid var(--surface-border);
+	color: #4b5563;
+}
+
+.app-footer small {
+	font-size: 0.78rem;
+}
+
+@media (max-width: 640px) {
+	.app-header {
+		flex-wrap: wrap;
+		justify-content: center;
+		text-align: center;
+	}
+
+	.app-nav {
+		width: 100%;
+		justify-content: center;
+	}
+}
