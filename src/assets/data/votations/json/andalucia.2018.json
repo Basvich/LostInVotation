@@ -1,0 +1,193 @@
+{
+  "votation": {
+    "date": "2018-01-01T00:00:00.000Z",
+    "name": "Parlamento 2018",
+    "zone": "andalucia"
+  },
+  "votesToParties": [
+    {
+      "numberOfVotes": 1009243,
+      "party": {
+        "id": "22",
+        "name": "PSOE-A"
+      }
+    },
+    {
+      "numberOfVotes": 749275,
+      "party": {
+        "id": "20",
+        "name": "PP"
+      }
+    },
+    {
+      "numberOfVotes": 659631,
+      "party": {
+        "id": "6",
+        "name": "Cs"
+      }
+    },
+    {
+      "numberOfVotes": 584040,
+      "party": {
+        "id": "1",
+        "name": "ADELANTE ANDALUCÍA"
+      }
+    },
+    {
+      "numberOfVotes": 395978,
+      "party": {
+        "id": "30",
+        "name": "VOX"
+      }
+    },
+    {
+      "numberOfVotes": 69660,
+      "party": {
+        "id": "15",
+        "name": "PACMA"
+      }
+    },
+    {
+      "numberOfVotes": 22017,
+      "party": {
+        "id": "3",
+        "name": "AxSÍ"
+      }
+    },
+    {
+      "numberOfVotes": 15009,
+      "party": {
+        "id": "9",
+        "name": "EQUO-INICIATIVA"
+      }
+    },
+    {
+      "numberOfVotes": 7155,
+      "party": {
+        "id": "24",
+        "name": "RECORTES CERO - M+J - GV"
+      }
+    },
+    {
+      "numberOfVotes": 6592,
+      "party": {
+        "id": "18",
+        "name": "PCPA"
+      }
+    },
+    {
+      "numberOfVotes": 6339,
+      "party": {
+        "id": "29",
+        "name": "UPYD"
+      }
+    },
+    {
+      "numberOfVotes": 4988,
+      "party": {
+        "id": "14",
+        "name": "NA"
+      }
+    },
+    {
+      "numberOfVotes": 3990,
+      "party": {
+        "id": "12",
+        "name": "IxH"
+      }
+    },
+    {
+      "numberOfVotes": 3942,
+      "party": {
+        "id": "5",
+        "name": "CILUS"
+      }
+    },
+    {
+      "numberOfVotes": 3205,
+      "party": {
+        "id": "19",
+        "name": "P.C.O.E."
+      }
+    },
+    {
+      "numberOfVotes": 2939,
+      "party": {
+        "id": "10",
+        "name": "EB"
+      }
+    },
+    {
+      "numberOfVotes": 2449,
+      "party": {
+        "id": "11",
+        "name": "FE de las JONS"
+      }
+    },
+    {
+      "numberOfVotes": 2019,
+      "party": {
+        "id": "2",
+        "name": "ALTER"
+      }
+    },
+    {
+      "numberOfVotes": 1188,
+      "party": {
+        "id": "8",
+        "name": "CAnda"
+      }
+    },
+    {
+      "numberOfVotes": 1032,
+      "party": {
+        "id": "25",
+        "name": "Respeto"
+      }
+    },
+    {
+      "numberOfVotes": 968,
+      "party": {
+        "id": "4",
+        "name": "CILU-LINARES"
+      }
+    },
+    {
+      "numberOfVotes": 649,
+      "party": {
+        "id": "13",
+        "name": "IZAR"
+      }
+    },
+    {
+      "numberOfVotes": 496,
+      "party": {
+        "id": "27",
+        "name": "SOLUCIONA"
+      }
+    },
+    {
+      "numberOfVotes": 453,
+      "party": {
+        "id": "7",
+        "name": "ConecAnd"
+      }
+    },
+    {
+      "numberOfVotes": 325,
+      "party": {
+        "id": "28",
+        "name": "UNIDOS SÍ-Democracia Efectiva"
+      }
+    },
+    {
+      "numberOfVotes": 228,
+      "party": {
+        "id": "21",
+        "name": "RISA"
+      }
+    }
+  ],
+  "totalVotes": 3691859,
+  "totalVotesToParties": 3553810
+}

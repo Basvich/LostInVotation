@@ -1,0 +1,52 @@
+[
+  {
+    "id":"PP",
+    "name":"Partido Popular",
+    "color":"#0047AB"
+  },
+  {
+    "id":"PSOE",
+    "name":"Partido Socialista Obrero Español",
+    "color":"#FF0000"
+  },
+  {
+    "id":"VOX",
+    "name":"Vox",
+    "color":"#008000"
+  },
+  {
+    "id":"UP",
+    "name":"Unidas Podemos",
+    "color":"#800080"
+  },
+  {
+    "id":"ERC",
+    "name":"Esquerra Republicana de Catalunya",
+    "color":"#FF4500"
+  },
+  {
+    "id":"JxCAT",
+    "name":"Junts per Catalunya",
+    "color":"#FFD700"
+  },
+  {
+    "id":"PNV",
+    "name":"Partido Nacionalista Vasco",
+    "color":"#008080"
+  },
+  {
+    "id":"EH Bildu",
+    "name":"EH Bildu",
+    "color":"#A52A2A"
+  },
+  {
+    "id":"Más País",
+    "name":"Más País",
+    "color":"#00FF00"
+  },
+  {
+    "id":"ADELANTE ANDALUCÍA",
+    "name":"Adelante Andalucía",
+    "color":"#FF69B4"
+  }
+]

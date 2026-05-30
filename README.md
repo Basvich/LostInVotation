@@ -44,6 +44,44 @@ To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use th
 ng test
 ```
 
+Run tests once (without watch mode):
+
+```bash
+npm run test:once
+```
+
+## Importing votation files (XML -> JSON)
+
+The repository includes a conversion utility prepared for multiple source formats.
+
+Current supported format:
+
+- XML files exported like the election files under `src/assets/data/votations`
+
+Generate JSON files (default output: `src/assets/data/votations/json`):
+
+```bash
+npm run import:votations
+```
+
+Generate JSON files directly into public assets (served by Angular build):
+
+```bash
+npm run import:votations:public
+```
+
+Convert a single file:
+
+```bash
+npm run import:votations -- --file src/assets/data/votations/andalucia.2018.xml
+```
+
+Additional options:
+
+```bash
+npm run import:votations -- --input src/assets/data/votations --output public/data/votations
+```
+
 ## Running end-to-end tests
 
 For end-to-end (e2e) testing, run:

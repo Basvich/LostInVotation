@@ -1,0 +1,200 @@
+{
+  "votation": {
+    "date": "2022-01-01T00:00:00.000Z",
+    "name": "Parlamento 2022",
+    "zone": "andalucia"
+  },
+  "votesToParties": [
+    {
+      "numberOfVotes": 1582412,
+      "party": {
+        "id": "20",
+        "name": "PP"
+      }
+    },
+    {
+      "numberOfVotes": 883707,
+      "party": {
+        "id": "21",
+        "name": "PSOE-A"
+      }
+    },
+    {
+      "numberOfVotes": 493932,
+      "party": {
+        "id": "29",
+        "name": "VOX"
+      }
+    },
+    {
+      "numberOfVotes": 281688,
+      "party": {
+        "id": "19",
+        "name": "PorA"
+      }
+    },
+    {
+      "numberOfVotes": 167970,
+      "party": {
+        "id": "1",
+        "name": "ADELANTE ANDALUCÍA-ANDALUCISTAS"
+      }
+    },
+    {
+      "numberOfVotes": 120870,
+      "party": {
+        "id": "4",
+        "name": "Cs"
+      }
+    },
+    {
+      "numberOfVotes": 35273,
+      "party": {
+        "id": "15",
+        "name": "PACMA"
+      }
+    },
+    {
+      "numberOfVotes": 18685,
+      "party": {
+        "id": "10",
+        "name": "JM+"
+      }
+    },
+    {
+      "numberOfVotes": 11963,
+      "party": {
+        "id": "2",
+        "name": "AL"
+      }
+    },
+    {
+      "numberOfVotes": 4617,
+      "party": {
+        "id": "6",
+        "name": "ESCAÑOS EN BLANCO"
+      }
+    },
+    {
+      "numberOfVotes": 4196,
+      "party": {
+        "id": "17",
+        "name": "PCPA"
+      }
+    },
+    {
+      "numberOfVotes": 4047,
+      "party": {
+        "id": "22",
+        "name": "PUM+J"
+      }
+    },
+    {
+      "numberOfVotes": 3165,
+      "party": {
+        "id": "30",
+        "name": "XH"
+      }
+    },
+    {
+      "numberOfVotes": 2930,
+      "party": {
+        "id": "14",
+        "name": "N.A."
+      }
+    },
+    {
+      "numberOfVotes": 2818,
+      "party": {
+        "id": "18",
+        "name": "PCTE"
+      }
+    },
+    {
+      "numberOfVotes": 2772,
+      "party": {
+        "id": "23",
+        "name": "RECORTES CERO"
+      }
+    },
+    {
+      "numberOfVotes": 2465,
+      "party": {
+        "id": "3",
+        "name": "CRSxA"
+      }
+    },
+    {
+      "numberOfVotes": 2232,
+      "party": {
+        "id": "16",
+        "name": "PARTIDO AUTÓNOMOS"
+      }
+    },
+    {
+      "numberOfVotes": 1504,
+      "party": {
+        "id": "7",
+        "name": "FE de las JONS"
+      }
+    },
+    {
+      "numberOfVotes": 1422,
+      "party": {
+        "id": "13",
+        "name": "LOS VERDES"
+      }
+    },
+    {
+      "numberOfVotes": 1299,
+      "party": {
+        "id": "12",
+        "name": "JxG"
+      }
+    },
+    {
+      "numberOfVotes": 904,
+      "party": {
+        "id": "28",
+        "name": "VOLT"
+      }
+    },
+    {
+      "numberOfVotes": 344,
+      "party": {
+        "id": "11",
+        "name": "JUFUDI"
+      }
+    },
+    {
+      "numberOfVotes": 265,
+      "party": {
+        "id": "27",
+        "name": "SOMOS FUTURO"
+      }
+    },
+    {
+      "numberOfVotes": 258,
+      "party": {
+        "id": "5",
+        "name": "DESPIERTA"
+      }
+    },
+    {
+      "numberOfVotes": 197,
+      "party": {
+        "id": "9",
+        "name": "IZAR"
+      }
+    },
+    {
+      "numberOfVotes": 163,
+      "party": {
+        "id": "8",
+        "name": "Federación BASTA YA!"
+      }
+    }
+  ],
+  "totalVotes": 3710609,
+  "totalVotesToParties": 3632098
+}

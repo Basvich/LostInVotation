@@ -6,7 +6,10 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "test:once": "ng test --watch=false",
+    "import:votations": "tsx tools/votation-import/convert-votations.ts",
+    "import:votations:public": "tsx tools/votation-import/convert-votations.ts --output public/data/votations"
   },
   "private": true,
   "packageManager": "npm@11.14.1",
@@ -24,8 +27,10 @@
     "@angular/build": "^21.2.11",
     "@angular/cli": "^21.2.11",
     "@angular/compiler-cli": "^21.2.0",
+    "fast-xml-parser": "^5.3.2",
     "jsdom": "^28.0.0",
     "prettier": "^3.8.1",
+    "tsx": "^4.20.6",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
   }
