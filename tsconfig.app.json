@@ -4,6 +4,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
+    "rootDir": "./src",
     "types": []
   },
   "include": [
@@ -13,3 +14,6 @@
     "src/**/*.spec.ts"
   ]
 }
+
+//The common source directory of 'tsconfig.app.json' is './src'. The 'rootDir' setting must be explicitly set to this or another path to adjust your output's file layout.
+  //Visit https://aka.ms/ts6 for migration information.

@@ -1,0 +1,58 @@
+.analysis-shell {
+  display: grid;
+  gap: 1rem;
+}
+
+.toolbar,
+.status-row,
+.dialog-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.status-row {
+  justify-content: space-between;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-pill.is-running {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.summary-grid,
+.dialog-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+
+.summary-grid article {
+  padding: 1rem;
+  border: 1px solid var(--surface-border, #d1d5db);
+  border-radius: 0.9rem;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+label {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.empty-state,
+.result-placeholder p,
+.summary-grid p {
+  margin: 0;
+}

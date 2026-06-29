@@ -6,7 +6,7 @@ export interface IavailableVotations{
 
 export interface IVotationsInZone{
   zone: string;
-  votations: IAvailableVotation
+  votations: IAvailableVotation[];
 }
 
 export interface IAvailableVotation{

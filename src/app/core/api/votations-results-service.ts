@@ -8,7 +8,7 @@ import { IVotation, IVotationResult } from '../models/party';
 type Override<T, R> = Omit<T, keyof R> & R;
 type IAvailableVotationDto = Override<IAvailableVotation, { date: string }>;
 type IVotationsInZoneDto = Override<IVotationsInZone, {
-  votations: IAvailableVotationDto;
+  votations: IAvailableVotationDto[];
 }>;
 type IVotationDto = Override<IVotation, { date: string }>;
 type IVotationResultDto = Override<IVotationResult, { votation: IVotationDto }>;
@@ -29,10 +29,10 @@ export class VotationsResultsService {
         map((votationsInZone) =>
           votationsInZone.map((zoneVotations) => ({
             ...zoneVotations,
-            votations: {
-              ...zoneVotations.votations,
-              date: new Date(zoneVotations.votations.date),
-            },
+            votations: zoneVotations.votations.map((votation) => ({
+              ...votation,
+              date: new Date(votation.date),
+            })),
           })),
         ),
       );

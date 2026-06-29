@@ -34,6 +34,8 @@ Prefer npm scripts over direct ng commands unless a script is missing.
 
 - Keep Angular code standalone-first, matching existing files.
 - Use SCSS for component styles.
+- Prefer separate files for component logic, template, and styles in pages and components, unless the component is very small and trivial.
+- Prefer shared, global, or reusable style utilities over repeating the same styles in each component.
 - Keep route definitions in src/app/app.routes.ts unless a feature introduces route files.
 - Keep provider wiring in src/app/app.config.ts.
 - Follow existing naming and file placement patterns when adding components or services.
@@ -66,6 +68,7 @@ Use these rules for all new or modified Angular and TypeScript code in this repo
 ### Component Guidelines
 
 - Keep components small and focused on a single responsibility.
+- For pages and non-trivial components, prefer separate .ts, .html, and .scss files; inline templates and styles are only preferred for very small, trivial components.
 - Use input() and output() functions instead of decorators.
 - Use computed() for derived state.
 - Set changeDetection: ChangeDetectionStrategy.OnPush in component metadata.
@@ -74,6 +77,7 @@ Use these rules for all new or modified Angular and TypeScript code in this repo
 - Do not use ngClass; use class bindings.
 - Do not use ngStyle; use style bindings.
 - For external templates and styles, use paths relative to the component TypeScript file.
+- Prefer shared styles, global primitives, and reusable utility classes before adding duplicated component-specific styling.
 
 ### State Management
 
