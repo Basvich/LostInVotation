@@ -106,6 +106,7 @@ export class VoteFlowAnalysisPage {
   }
 
   protected runAnalysis(): void {
+    console.log('VoteFlowAnalysisPage.runAnalysis() Running analysis with fidelity:', this.fidelity());
     this.store.setInput({ fidelityPercentage: this.fidelity() });
     this.store.setStatus('ready');
     this.dialogVisible.set(false);

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { IAvailableVotation, IVotationsInZone } from '../models/availableData';
 import { IVotation, IVotationResult } from '../models/party';
 
@@ -23,8 +23,10 @@ export class VotationsResultsService {
 
   /** Devuelve las votaciones disponibles */
   public getAvailableVotations(): Observable<IVotationsInZone[]> {
+    const url = `${this.baseUrl}/availableVotations.json`;
+    console.log('Fetching available votations from:', url);
     return this.httpClient
-      .get<IVotationsInZoneDto[]>(`${this.baseUrl}/votations`)
+      .get<IVotationsInZoneDto[]>(url)
       .pipe(
         map((votationsInZone) =>
           votationsInZone.map((zoneVotations) => ({
@@ -35,6 +37,7 @@ export class VotationsResultsService {
             })),
           })),
         ),
+        catchError(this.handleError),
       );
   }
 
@@ -42,8 +45,11 @@ export class VotationsResultsService {
    *  devuelve el resultado de la votacion.
    */
   public getVotationResult(link: string): Observable<IVotationResult> {
+    const normalizedLink = link.replace(/^\.\//, '').replace(/^\//, '');
+    const url = `${this.baseUrl}/${normalizedLink}`;
+    console.log('Fetching votation result from:', url);
     return this.httpClient
-      .get<IVotationResultDto>(`${this.baseUrl}/${link}`)
+      .get<IVotationResultDto>(url)
       .pipe(
         map((votationResult) => ({
           ...votationResult,
@@ -53,5 +59,11 @@ export class VotationsResultsService {
           },
         })),
       );
+  }
+
+
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    console.error('An error occurred:', error.message);
+    return throwError(() => new Error('Something went wrong; please try again later.'));
   }
 }

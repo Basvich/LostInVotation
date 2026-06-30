@@ -4,13 +4,13 @@
       "votations":[
         {
           "date":"2018-06-01",
-          "name":"Votación sobre el presupuesto de la Junta de Andalucía para el año 2024",
-          "link":"./data/votations/andalucia.2018.json"
+          "name":"Parlamento 2018",
+          "link":"votations/andalucia.2018.json"
         },
         {
           "date":"2022-05-15",
-          "name":"Votación sobre la reforma educativa en Andalucía",
-          "link":"./data/votations/andalucia.2022.json"
+          "name":"Parlamento 2022",
+          "link":"votations/andalucia.2022.json"
         }
       ]
           

@@ -48,6 +48,7 @@
       <label>
         <span>Zona</span>
         <p-select
+          [appendTo]="'body'"
           [options]="zoneOptions()"
           optionLabel="label"
           optionValue="value"
@@ -60,6 +61,7 @@
       <label>
         <span>Votación antigua</span>
         <p-select
+          [appendTo]="'body'"
           [options]="oldVotationOptions()"
           optionLabel="label"
           optionValue="value"
@@ -73,6 +75,7 @@
       <label>
         <span>Votación nueva</span>
         <p-select
+          [appendTo]="'body'"
           [options]="newVotationOptions()"
           optionLabel="label"
           optionValue="value"
