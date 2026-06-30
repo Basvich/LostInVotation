@@ -6,6 +6,8 @@ import { DialogModule } from 'primeng/dialog';
 import { SelectModule } from 'primeng/select';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { forkJoin } from 'rxjs';
+import { VoteFlowAnalyzer } from '../../core/analysis/vote-flow-analyzer';
 import { VoteFlowAnalysisStore } from '../../core/state/vote-flow-analysis.store';
 import { VotationsResultsService } from '../../core/api/votations-results-service';
 import { IVotationsInZone } from '../../core/models/availableData';
@@ -31,6 +33,7 @@ type VotationOption = { label: string; value: string };
 export class VoteFlowAnalysisPage {
   private readonly votationsService = inject(VotationsResultsService);
   protected readonly store = inject(VoteFlowAnalysisStore);
+  private readonly analyzer = new VoteFlowAnalyzer();
 
   protected readonly dialogVisible = signal(false);
   protected readonly availableVotations = signal<IVotationsInZone[]>([]);
@@ -106,11 +109,64 @@ export class VoteFlowAnalysisPage {
   }
 
   protected runAnalysis(): void {
-    console.log('VoteFlowAnalysisPage.runAnalysis() Running analysis with fidelity:', this.fidelity());
-    this.store.setInput({ fidelityPercentage: this.fidelity() });
-    this.store.setStatus('ready');
+    const selection = this.selection();
+    if (!selection.oldLink || !selection.newLink || selection.oldLink === selection.newLink) {
+      this.store.setStatus('error');
+      this.store.setError('Selecciona dos votaciones distintas para lanzar el análisis.');
+      return;
+    }
+
+    this.store.setError(null);
+    this.store.setScenarios([]);
+    this.store.setProgress({ completed: 0, total: 3 });
+    this.store.setStatus('running');
     this.dialogVisible.set(false);
-    // Worker integration will hook into the store here in the next step.
+
+    const fidelityPercentage = this.fidelity();
+    const { blockSize, scenarioCount } = this.store.input();
+
+    forkJoin({
+      oldVotation: this.votationsService.getVotationResult(selection.oldLink),
+      newVotation: this.votationsService.getVotationResult(selection.newLink),
+    }).subscribe({
+      next: ({ oldVotation, newVotation }) => {
+        this.store.setProgress({ completed: 2, total: 3 });
+        this.store.setSourceData(oldVotation, newVotation);
+        this.store.setInput({
+          fidelityPercentage,
+          blockSize,
+          scenarioCount,
+        });
+
+        let scenarios;
+        try {
+          scenarios = this.analyzer.generateScenarios(
+            {
+              oldVotation,
+              newVotation,
+              fidelityPercentage,
+              blockSize,
+            },
+            scenarioCount,
+          );
+        } catch {
+          this.store.setStatus('error');
+          this.store.setProgress({ completed: 0, total: 0 });
+          this.store.setError('No se ha podido generar un escenario válido con los parámetros seleccionados.');
+          return;
+        }
+
+        this.store.setScenarios(scenarios);
+        this.store.setSelectedScenario(0);
+        this.store.setProgress({ completed: 3, total: 3 });
+        this.store.setStatus('done');
+      },
+      error: () => {
+        this.store.setStatus('error');
+        this.store.setProgress({ completed: 0, total: 0 });
+        this.store.setError('No se ha podido cargar o analizar las votaciones seleccionadas.');
+      },
+    });
   }
 
   protected selectedOldLabel(): string {
