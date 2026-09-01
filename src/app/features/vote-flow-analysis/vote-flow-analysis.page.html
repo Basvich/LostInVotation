@@ -99,6 +99,18 @@
           (ngModelChange)="fidelity.set($event)"
         ></p-inputNumber>
       </label>
+
+      <label>
+        <span>Número de escenarios</span>
+        <p-inputNumber
+          [min]="1"
+          [max]="200"
+          [step]="1"
+          mode="decimal"
+          [ngModel]="scenarioCount()"
+          (ngModelChange)="scenarioCount.set($event)"
+        ></p-inputNumber>
+      </label>
     </div>
 
     <div class="dialog-actions">

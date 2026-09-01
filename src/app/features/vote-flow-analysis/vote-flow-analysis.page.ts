@@ -38,6 +38,7 @@ export class VoteFlowAnalysisPage {
   protected readonly dialogVisible = signal(false);
   protected readonly availableVotations = signal<IVotationsInZone[]>([]);
   protected readonly fidelity = signal(0.5);
+  protected readonly scenarioCount = signal(20);
 
   protected readonly status = this.store.status;
   protected readonly selection = this.store.selection;
@@ -88,6 +89,7 @@ export class VoteFlowAnalysisPage {
   protected reset(): void {
     this.store.reset();
     this.fidelity.set(0.5);
+    this.scenarioCount.set(20);
     this.dialogVisible.set(false);
   }
 
@@ -123,7 +125,8 @@ export class VoteFlowAnalysisPage {
     this.dialogVisible.set(false);
 
     const fidelityPercentage = this.fidelity();
-    const { blockSize, scenarioCount } = this.store.input();
+    const { blockSize } = this.store.input();
+    const scenarioCount = this.scenarioCount();
 
     forkJoin({
       oldVotation: this.votationsService.getVotationResult(selection.oldLink),

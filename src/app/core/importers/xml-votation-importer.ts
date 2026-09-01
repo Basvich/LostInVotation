@@ -67,13 +67,19 @@ export class XmlVotationImporter implements VotationImporter {
       throw new Error(this.buildError('No parties found under resultados.partido', metadata));
     }
 
-    const votesToParties: IVotesToParty[] = parties.map((partyNode) => ({
-      numberOfVotes: this.readInteger(partyNode.votos_numero, 'partido.votos_numero', metadata),
-      party: {
-        id: this.readText(partyNode.id_partido, 'partido.id_partido', metadata),
-        name: this.readText(partyNode.nombre, 'partido.nombre', metadata),
-      },
-    }));
+    const votesToParties: IVotesToParty[] = parties.map((partyNode) => {
+      const name = this.readText(partyNode.nombre, 'partido.nombre', metadata);
+      return {
+        numberOfVotes: this.readInteger(partyNode.votos_numero, 'partido.votos_numero', metadata),
+        // `id_partido` is only a per-convocatoria correlative number reused across different parties
+        // in different elections, so it cannot identify the same party across votations. The
+        // slugified party name is used instead as a stable identifier to match parties over time.
+        party: {
+          id: this.slugify(name),
+          name,
+        },
+      };
+    });
 
     const totalVotesToParties = votesToParties.reduce(
       (accumulator, partyVotes) => accumulator + partyVotes.numberOfVotes,

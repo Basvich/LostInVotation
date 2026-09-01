@@ -39,7 +39,7 @@ describe('XmlVotationImporter', () => {
     expect(result.votesToParties).toHaveLength(2);
     expect(result.votesToParties[0]).toMatchObject({
       numberOfVotes: 60,
-      party: { id: '22', name: 'PSOE-A' },
+      party: { id: 'psoe-a', name: 'PSOE-A' },
     });
   });
 
