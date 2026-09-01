@@ -6,6 +6,7 @@ import {
   IVoteFlowAnalysisState,
 } from '../models/vote-flow-analysis';
 import { IVotationResult } from '../models/party';
+import { environment } from '../../../environments/environment';
 
 const DEFAULT_STATE: IVoteFlowAnalysisState = {
   status: 'idle',
@@ -17,9 +18,9 @@ const DEFAULT_STATE: IVoteFlowAnalysisState = {
   input: {
     oldVotation: null,
     newVotation: null,
-    fidelityPercentage: 0.5,
+    fidelityPercentage: environment.voteFlowAnalysis.defaultFidelityPercentage,
     blockSize: 1000,
-    scenarioCount: 1,
+    scenarioCount: environment.voteFlowAnalysis.defaultScenarioCount,
   },
   progress: {
     completed: 0,

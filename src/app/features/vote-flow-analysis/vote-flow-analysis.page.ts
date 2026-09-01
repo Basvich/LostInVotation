@@ -11,6 +11,7 @@ import { VoteFlowAnalyzer } from '../../core/analysis/vote-flow-analyzer';
 import { VoteFlowAnalysisStore } from '../../core/state/vote-flow-analysis.store';
 import { VotationsResultsService } from '../../core/api/votations-results-service';
 import { IVotationsInZone } from '../../core/models/availableData';
+import { environment } from '../../../environments/environment';
 
 type ZoneOption = { label: string; value: string };
 type VotationOption = { label: string; value: string };
@@ -37,8 +38,8 @@ export class VoteFlowAnalysisPage {
 
   protected readonly dialogVisible = signal(false);
   protected readonly availableVotations = signal<IVotationsInZone[]>([]);
-  protected readonly fidelity = signal(0.5);
-  protected readonly scenarioCount = signal(20);
+  protected readonly fidelity = signal(environment.voteFlowAnalysis.defaultFidelityPercentage);
+  protected readonly scenarioCount = signal(environment.voteFlowAnalysis.defaultScenarioCount);
 
   protected readonly status = this.store.status;
   protected readonly selection = this.store.selection;
@@ -88,8 +89,8 @@ export class VoteFlowAnalysisPage {
 
   protected reset(): void {
     this.store.reset();
-    this.fidelity.set(0.5);
-    this.scenarioCount.set(20);
+    this.fidelity.set(environment.voteFlowAnalysis.defaultFidelityPercentage);
+    this.scenarioCount.set(environment.voteFlowAnalysis.defaultScenarioCount);
     this.dialogVisible.set(false);
   }
 
