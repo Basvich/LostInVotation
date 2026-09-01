@@ -15,6 +15,10 @@ export const routes: Routes = [
 		loadComponent: () => import('./features/vote-flow-analysis/vote-flow-analysis.page').then((m) => m.VoteFlowAnalysisPage)
 	},
 	{
+		path: 'matriz-escenarios',
+		loadComponent: () => import('./features/scenario-views/scenario-matrix/scenario-matrix.page').then((m) => m.ScenarioMatrixPage)
+	},
+	{
 		path: 'acerca',
 		loadComponent: () => import('./pages/acerca.page').then((m) => m.AcercaPage)
 	},

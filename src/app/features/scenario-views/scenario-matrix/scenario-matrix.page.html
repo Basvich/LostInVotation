@@ -1,0 +1,64 @@
+<section class="matrix-shell">
+  <p-card header="Matriz de transferencia de votos por escenario">
+    @if (!hasScenarios()) {
+      <p class="empty-state">
+        No hay escenarios disponibles. Lanza un análisis desde la página
+        <a routerLink="/analisis-flujo">Análisis de flujo</a> para poder explorarlos aquí.
+      </p>
+    } @else {
+      <div class="scenario-nav" role="group" aria-label="Navegación entre escenarios">
+        <span class="scenario-label" id="scenario-slider-label">
+          Escenario {{ scenarioPosition() }} de {{ scenarioCount() }}
+        </span>
+        <p-slider
+          class="scenario-slider"
+          [ngModel]="selectedOrderedIndex()"
+          (ngModelChange)="onSliderChange($event)"
+          [min]="0"
+          [max]="sliderMax()"
+          [step]="1"
+          aria-labelledby="scenario-slider-label"
+        ></p-slider>
+      </div>
+
+      @if (matrixRows().length > 0) {
+        <div class="matrix-scroll" role="region" aria-label="Tabla de flujo de votos entre partidos" tabindex="0">
+          <table class="matrix-table">
+            <caption class="sr-only">
+              Votos transferidos de cada partido (fila, votación antigua) a cada partido (columna, votación nueva)
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col" class="corner-cell">Origen \ Destino</th>
+                @for (party of columnParties(); track party.id) {
+                  <th scope="col">{{ party.name }}</th>
+                }
+                <th scope="col" class="total-cell">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of matrixRows(); track row.partyId) {
+                <tr>
+                  <th scope="row">{{ row.partyName }}</th>
+                  @for (cellValue of row.cells; track $index) {
+                    <td [class.is-empty]="cellValue === 0">{{ cellValue | number }}</td>
+                  }
+                  <td class="total-cell">{{ row.total | number }}</td>
+                </tr>
+              }
+            </tbody>
+            <tfoot>
+              <tr>
+                <th scope="row">Total</th>
+                @for (colTotal of columnTotals(); track $index) {
+                  <td class="total-cell">{{ colTotal | number }}</td>
+                }
+                <td class="total-cell"></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      }
+    }
+  </p-card>
+</section>
