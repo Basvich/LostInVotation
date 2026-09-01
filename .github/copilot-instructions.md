@@ -4,10 +4,15 @@ This file helps coding agents work quickly and safely in this repository.
 
 ## Project Snapshot
 
-- Framework: Angular 21 standalone app
-- Package manager: npm (see packageManager in package.json)
-- Styling: SCSS
-- Tests: Angular unit tests via ng test (Vitest-backed in this template)
+- **App Name:** LostInVotation
+- **Purpose:** Interactive analysis of voting flow patterns across electoral zones
+- **Framework:** Angular 21 standalone app
+- **Package manager:** npm (see packageManager in package.json)
+- **Styling:** SCSS
+- **Tests:** Angular unit tests via ng test (Vitest-backed)
+- **UI Library:** PrimeNG + PrimeUX themes
+- **Data Visualization:** ngx-charts
+- **Key Features:** Votation data import (XML/JSON), vote flow simulation, scenario analysis
 
 ## High-Value Paths
 
@@ -19,6 +24,12 @@ This file helps coding agents work quickly and safely in this repository.
 - Scripts and dependencies: package.json
 - Architecture guidance: context/agent.md
 - Basic project usage: README.md
+- **Core analysis engine:** src/app/core/analysis/vote-flow-analyzer.ts
+- **State management:** src/app/core/state/vote-flow-analysis.store.ts
+- **API layer:** src/app/core/api/votations-results-service.ts
+- **Main feature:** src/app/features/vote-flow-analysis/vote-flow-analysis.page.ts
+- **Data models:** src/app/core/models/ (party.ts, vote-flow.ts, availableData.ts, vote-flow-analysis.ts)
+- **Import tools:** tools/votation-import/convert-votations.ts
 
 ## Commands Agents Should Run
 
@@ -27,6 +38,9 @@ This file helps coding agents work quickly and safely in this repository.
 - Run tests: npm test
 - Build production bundle: npm run build
 - Development watch build: npm run watch
+- **Import votations from source data:** npm run import:votations
+- **Import votations to public folder:** npm run import:votations:public
+- **Run tests once (non-watch):** npm run test:once
 
 Prefer npm scripts over direct ng commands unless a script is missing.
 
@@ -104,6 +118,26 @@ Use these rules for all new or modified Angular and TypeScript code in this repo
 - For behavior changes, update or add tests in *.spec.ts files.
 - Run npm test after meaningful code changes.
 - If tests cannot run locally, report that clearly in your handoff.
+- **Router tests:** Components using RouterLink require provideRouter([]) in TestBed to avoid NG0201 ActivatedRoute errors.
+- **Use npm run test:once:** With npm 11, using --watch=false flag directly may still launch watch mode.
+
+## Domain-Specific Knowledge
+
+### Votation Analysis Concepts
+
+- **Vote Flow:** How voters shift their voting patterns between two elections (oldVotation → newVotation).
+- **Fidelity:** Percentage of voters who maintain loyalty to their previous vote (0.0 to 1.0).
+- **Block Size:** Number of voters grouped for simulation (affects granularity of flow scenarios).
+- **Scenario:** A simulated outcome showing one possible vote distribution based on fidelity and block constraints.
+- **Zone:** Electoral district or geographic region (e.g., "Andalucía").
+
+### Data Flow
+
+1. **Source Data:** XML or JSON files containing votation results by zone
+2. **Available Votations:** Metadata index listing zones, years, and data file links
+3. **VoteFlowAnalyzer:** Core engine that generates multiple scenarios of vote redistribution
+4. **VoteFlowAnalysisStore:** Centralized signal-based state for analysis selections and results
+5. **VoteFlowAnalysisPage:** Interactive UI for selecting zones, votations, parameters, and viewing scenarios
 
 ## Architecture Notes
 
