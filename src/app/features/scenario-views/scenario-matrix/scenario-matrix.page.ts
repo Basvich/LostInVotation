@@ -63,19 +63,41 @@ export class ScenarioMatrixPage {
     return buildScenarioMatrix(current.scenario, this.partyOrder());
   });
 
+  /**
+   * Índices de columnas a mostrar: se excluyen los partidos que no existen en la votación nueva,
+   * ya que nunca pueden recibir votos y sus columnas quedarían siempre a cero.
+   */
+  protected readonly visibleColumnIndices = computed(() => {
+    const newPartyIds = new Set(
+      (this.input().newVotation?.votesToParties ?? []).map((vtp) => vtp.party.id),
+    );
+    return this.partyOrder().reduce<number[]>((indices, party, index) => {
+      if (newPartyIds.has(party.id)) indices.push(index);
+      return indices;
+    }, []);
+  });
+
   protected readonly matrixRows = computed<IMatrixRowView[]>(() => {
     const matrix = this.currentMatrix();
     if (!matrix) return [];
+    const visible = this.visibleColumnIndices();
     return matrix.parties.map((party, rowIndex) => ({
       partyId: party.id,
       partyName: party.name,
-      cells: matrix.cells[rowIndex],
+      cells: visible.map((colIndex) => matrix.cells[rowIndex][colIndex]),
       total: matrix.rowTotals[rowIndex],
     }));
   });
 
-  protected readonly columnParties = computed(() => this.currentMatrix()?.parties ?? []);
-  protected readonly columnTotals = computed(() => this.currentMatrix()?.colTotals ?? []);
+  protected readonly columnParties = computed(() => {
+    const parties = this.currentMatrix()?.parties ?? [];
+    return this.visibleColumnIndices().map((index) => parties[index]);
+  });
+
+  protected readonly columnTotals = computed(() => {
+    const totals = this.currentMatrix()?.colTotals ?? [];
+    return this.visibleColumnIndices().map((index) => totals[index]);
+  });
 
   protected readonly scenarioPosition = computed(() => this.selectedOrderedIndex() + 1);
   protected readonly scenarioCount = computed(() => this.orderedScenarios().length);
