@@ -1,0 +1,64 @@
+<section class="stats-shell">
+  <p-card header="Estadísticas de transferencia de votos entre escenarios">
+    @if (!hasScenarios()) {
+      <p class="empty-state">
+        No hay escenarios disponibles. Lanza un análisis desde la página
+        <a routerLink="/analisis-flujo">Análisis de flujo</a> para poder explorarlos aquí.
+      </p>
+    } @else {
+      <div class="metric-picker" role="group" aria-label="Selección de estadístico">
+        <span class="metric-label" id="metric-picker-label">
+          Estadístico ({{ scenarioCount() }} escenario(s) analizados)
+        </span>
+        <p-selectButton
+          [options]="metricOptions"
+          [ngModel]="selectedMetric()"
+          (ngModelChange)="selectedMetric.set($event)"
+          optionLabel="label"
+          optionValue="value"
+          aria-labelledby="metric-picker-label"
+        ></p-selectButton>
+      </div>
+
+      @if (statsRows().length > 0) {
+        <div class="matrix-scroll" role="region" aria-label="Tabla de estadísticos de flujo de votos entre partidos" tabindex="0">
+          <table class="matrix-table">
+            <caption class="sr-only">
+              Estadístico seleccionado de votos transferidos de cada partido (fila, votación antigua) a cada partido
+              (columna, votación nueva), calculado sobre todos los escenarios generados
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col" class="corner-cell">Origen \ Destino</th>
+                @for (party of columnParties(); track party.id) {
+                  <th scope="col">{{ party.name }}</th>
+                }
+                <th scope="col" class="total-cell">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of statsRows(); track row.partyId) {
+                <tr>
+                  <th scope="row">{{ row.partyName }}</th>
+                  @for (cellValue of row.cells; track $index) {
+                    <td [class.is-empty]="cellValue === 0">{{ cellValue | number: '1.0-1' }}</td>
+                  }
+                  <td class="total-cell">{{ row.total | number: '1.0-1' }}</td>
+                </tr>
+              }
+            </tbody>
+            <tfoot>
+              <tr>
+                <th scope="row">Total</th>
+                @for (colTotal of columnTotals(); track $index) {
+                  <td class="total-cell">{{ colTotal | number: '1.0-1' }}</td>
+                }
+                <td class="total-cell"></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      }
+    }
+  </p-card>
+</section>

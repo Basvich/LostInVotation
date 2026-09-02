@@ -1,0 +1,78 @@
+.stats-shell {
+  display: grid;
+  gap: 1rem;
+}
+
+.empty-state {
+  margin: 0;
+  color: #374151;
+}
+
+.metric-picker {
+  display: grid;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.metric-label {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.matrix-scroll {
+  overflow-x: auto;
+}
+
+.matrix-table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 32rem;
+}
+
+.matrix-table th,
+.matrix-table td {
+  border: 1px solid var(--surface-border, #d1d5db);
+  padding: 0.5rem 0.75rem;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.matrix-table thead th {
+  text-align: center;
+  background: #f3f4f6;
+}
+
+.matrix-table .corner-cell {
+  text-align: left;
+}
+
+.matrix-table tbody th {
+  text-align: left;
+  background: #f9fafb;
+}
+
+.matrix-table td.is-empty {
+  color: #9ca3af;
+}
+
+.matrix-table .total-cell {
+  font-weight: 600;
+  background: #eef2ff;
+}
+
+.matrix-table tfoot th {
+  text-align: left;
+  background: #eef2ff;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

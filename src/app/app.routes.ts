@@ -19,6 +19,10 @@ export const routes: Routes = [
 		loadComponent: () => import('./features/scenario-views/scenario-matrix/scenario-matrix.page').then((m) => m.ScenarioMatrixPage)
 	},
 	{
+		path: 'estadisticas-escenarios',
+		loadComponent: () => import('./features/scenario-views/scenario-stats/scenario-stats.page').then((m) => m.ScenarioStatsPage)
+	},
+	{
 		path: 'acerca',
 		loadComponent: () => import('./pages/acerca.page').then((m) => m.AcercaPage)
 	},
