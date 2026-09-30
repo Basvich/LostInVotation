@@ -24,8 +24,25 @@
   max-width: 32rem;
 }
 
+.view-picker {
+  margin-bottom: 1rem;
+}
+
 .matrix-scroll {
   overflow-x: auto;
+}
+
+.sankey-scroll {
+  width: 100%;
+  height: 36rem;
+  overflow-x: auto;
+}
+
+ngx-charts-sankey {
+  display: block;
+  width: 100%;
+  min-width: 40rem;
+  height: 100%;
 }
 
 .matrix-table {

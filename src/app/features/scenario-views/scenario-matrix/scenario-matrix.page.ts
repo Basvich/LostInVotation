@@ -3,12 +3,15 @@ import { DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { CardModule } from 'primeng/card';
+import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
+import { SankeyModule } from '@swimlane/ngx-charts';
 import {
   buildPartyOrder,
   buildScenarioMatrix,
   sortScenariosByPartyChanges,
 } from '../../../core/analysis/scenario-matrix';
+import { buildScenarioSankeyLinks, ScenarioDisplayMode } from '../../../core/analysis/scenario-sankey';
 import { VoteFlowAnalysisStore } from '../../../core/state/vote-flow-analysis.store';
 
 /** Fila de la tabla: partido origen + celdas (una por partido destino) + total de fila. */
@@ -22,12 +25,18 @@ interface IMatrixRowView {
 @Component({
   selector: 'app-scenario-matrix-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, DecimalPipe, RouterLink, CardModule, SliderModule],
+  imports: [FormsModule, DecimalPipe, RouterLink, CardModule, SelectButtonModule, SliderModule, SankeyModule],
   templateUrl: './scenario-matrix.page.html',
   styleUrls: ['./scenario-matrix.page.scss'],
 })
 export class ScenarioMatrixPage {
   protected readonly store = inject(VoteFlowAnalysisStore);
+
+  protected readonly viewOptions = [
+    { label: 'Tabla', value: 'grid' },
+    { label: 'Diagrama Sankey', value: 'sankey' },
+  ];
+  protected readonly displayMode = signal<ScenarioDisplayMode>('grid');
 
   /** Índice del escenario seleccionado dentro de la lista ya ordenada (no el índice original). */
   protected readonly selectedOrderedIndex = signal(0);
@@ -61,6 +70,17 @@ export class ScenarioMatrixPage {
     const current = this.currentScenario();
     if (!current) return null;
     return buildScenarioMatrix(current.scenario, this.partyOrder());
+  });
+
+  protected readonly sankeyLinks = computed(() => {
+    const matrix = this.currentMatrix();
+    if (!matrix) return [];
+    const visible = this.visibleColumnIndices();
+    return buildScenarioSankeyLinks(
+      matrix.parties,
+      visible.map((index) => matrix.parties[index]),
+      matrix.cells.map((row) => visible.map((index) => row[index])),
+    );
   });
 
   /**

@@ -4,7 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { SankeyModule } from '@swimlane/ngx-charts';
 import { buildPartyOrder } from '../../../core/analysis/scenario-matrix';
+import { buildScenarioSankeyLinks, ScenarioDisplayMode } from '../../../core/analysis/scenario-sankey';
 import {
   buildScenarioStatsMatrix,
   STAT_METRIC_LABELS,
@@ -24,7 +26,7 @@ interface IStatsRowView {
 @Component({
   selector: 'app-scenario-stats-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, DecimalPipe, RouterLink, CardModule, SelectButtonModule],
+  imports: [FormsModule, DecimalPipe, RouterLink, CardModule, SelectButtonModule, SankeyModule],
   templateUrl: './scenario-stats.page.html',
   styleUrls: ['./scenario-stats.page.scss'],
 })
@@ -38,6 +40,11 @@ export class ScenarioStatsPage {
 
   /** Estadístico actualmente seleccionado para mostrar en la tabla. */
   protected readonly selectedMetric = signal<StatMetric>('mean');
+  protected readonly viewOptions = [
+    { label: 'Tabla', value: 'grid' },
+    { label: 'Diagrama Sankey', value: 'sankey' },
+  ];
+  protected readonly displayMode = signal<ScenarioDisplayMode>('grid');
 
   private readonly input = this.store.input;
   private readonly scenarios = this.store.scenarios;
@@ -78,6 +85,17 @@ export class ScenarioStatsPage {
       cells: visible.map((colIndex) => matrix.cells[rowIndex][colIndex][metric]),
       total: matrix.rowTotals[metric][rowIndex],
     }));
+  });
+
+  protected readonly sankeyLinks = computed(() => {
+    const matrix = this.statsMatrix();
+    const metric = this.selectedMetric();
+    const visible = this.visibleColumnIndices();
+    return buildScenarioSankeyLinks(
+      matrix.parties,
+      visible.map((index) => matrix.parties[index]),
+      matrix.cells.map((row) => visible.map((index) => row[index][metric])),
+    );
   });
 
   protected readonly columnParties = computed(() => {

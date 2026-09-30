@@ -21,7 +21,18 @@
         ></p-slider>
       </div>
 
-      @if (matrixRows().length > 0) {
+      <div class="view-picker" role="group" aria-label="Selección de visualización">
+        <p-selectbutton
+          [options]="viewOptions"
+          [ngModel]="displayMode()"
+          (ngModelChange)="displayMode.set($event)"
+          optionLabel="label"
+          optionValue="value"
+          aria-label="Visualización de los flujos"
+        ></p-selectbutton>
+      </div>
+
+      @if (displayMode() === 'grid' && matrixRows().length > 0) {
         <div class="matrix-scroll" role="region" aria-label="Tabla de flujo de votos entre partidos" tabindex="0">
           <table class="matrix-table">
             <caption class="sr-only">
@@ -58,6 +69,21 @@
             </tfoot>
           </table>
         </div>
+      }
+
+      @if (displayMode() === 'sankey') {
+        @if (sankeyLinks().length > 0) {
+          <div
+            class="sankey-scroll"
+            role="region"
+            aria-label="Diagrama Sankey de votos transferidos entre partidos"
+            tabindex="0"
+          >
+            <ngx-charts-sankey [results]="sankeyLinks()" [showLabels]="true"></ngx-charts-sankey>
+          </div>
+        } @else {
+          <p class="empty-state">No hay flujos de votos positivos para representar en el diagrama.</p>
+        }
       }
     }
   </p-card>
