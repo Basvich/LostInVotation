@@ -7,13 +7,17 @@
     "rootDir": "./src",
     "types": []
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "src/**/*.spec.ts"
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.spec.ts"],
+  "angularCompilerOptions": {
+    "extendedDiagnostics": {
+      "checks": {
+        "nullishCoalescingNotNullable": "suppress",
+        "optionalChainNotNullable": "suppress"
+      }
+    }
+  }
 }
 
 //The common source directory of 'tsconfig.app.json' is './src'. The 'rootDir' setting must be explicitly set to this or another path to adjust your output's file layout.
-  //Visit https://aka.ms/ts6 for migration information.
+//Visit https://aka.ms/ts6 for migration information.

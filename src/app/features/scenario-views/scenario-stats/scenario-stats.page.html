@@ -10,14 +10,14 @@
         <span class="metric-label" id="metric-picker-label">
           Estadístico ({{ scenarioCount() }} escenario(s) analizados)
         </span>
-        <p-selectButton
+        <p-selectbutton
           [options]="metricOptions"
           [ngModel]="selectedMetric()"
           (ngModelChange)="selectedMetric.set($event)"
           optionLabel="label"
           optionValue="value"
           aria-labelledby="metric-picker-label"
-        ></p-selectButton>
+        ></p-selectbutton>
       </div>
 
       @if (statsRows().length > 0) {

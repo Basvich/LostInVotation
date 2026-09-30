@@ -11,7 +11,7 @@
     </div>
 
     @if (isRunning() || progress().total > 0) {
-      <p-progressBar [value]="progressPercent()"></p-progressBar>
+      <p-progressbar [value]="progressPercent()"></p-progressbar>
     }
 
     @if (selection().oldLink || selection().newLink) {
@@ -88,7 +88,7 @@
 
       <label>
         <span>Fidelidad global</span>
-        <p-inputNumber
+        <p-inputnumber
           [min]="0"
           [max]="1"
           [step]="0.05"
@@ -97,19 +97,19 @@
           [maxFractionDigits]="2"
           [ngModel]="fidelity()"
           (ngModelChange)="fidelity.set($event)"
-        ></p-inputNumber>
+        ></p-inputnumber>
       </label>
 
       <label>
         <span>Número de escenarios</span>
-        <p-inputNumber
+        <p-inputnumber
           [min]="1"
           [max]="200"
           [step]="1"
           mode="decimal"
           [ngModel]="scenarioCount()"
           (ngModelChange)="scenarioCount.set($event)"
-        ></p-inputNumber>
+        ></p-inputnumber>
       </label>
     </div>
 
