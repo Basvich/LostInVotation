@@ -20,12 +20,13 @@
 }
 
 .scenario-slider {
-  width: 100%;
+  width: calc(100% - 1rem);
   max-width: 32rem;
 }
 
 .view-picker {
   margin-bottom: 1rem;
+  overflow-x: auto;
 }
 
 .matrix-scroll {

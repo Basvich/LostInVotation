@@ -5,8 +5,9 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 ## UI components
 
 The application is migrating from PrimeNG to Angular Material 22. The three main
-views use Material cards; other controls still use PrimeNG. Both libraries and
-their themes must remain configured until the remaining controls are migrated.
+views use Material cards, scenario selectors and sliders; the analysis form
+still uses PrimeNG. Both libraries and their themes must remain configured until
+the remaining controls are migrated.
 The Angular Material theme is configured in `src/styles.scss`.
 
 ## Development server

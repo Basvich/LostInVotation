@@ -60,6 +60,6 @@ describe('Material cards in analysis views', () => {
 
     expect(element.querySelector('mat-card-content .matrix-table')?.textContent).toContain('Partido');
     expect(element.querySelector('mat-card-content .matrix-table')?.textContent).toContain('100');
-    expect(element.querySelector('mat-card-content p-selectbutton')).toBeTruthy();
+    expect(element.querySelector('mat-card-content mat-button-toggle-group')).toBeTruthy();
   });
 });

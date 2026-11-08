@@ -14,26 +14,32 @@
           <span class="scenario-label" id="scenario-slider-label">
             Escenario {{ scenarioPosition() }} de {{ scenarioCount() }}
           </span>
-          <p-slider
+          <mat-slider
             class="scenario-slider"
-            [ngModel]="selectedOrderedIndex()"
-            (ngModelChange)="onSliderChange($event)"
             [min]="0"
             [max]="sliderMax()"
             [step]="1"
-            aria-labelledby="scenario-slider-label"
-          ></p-slider>
+            [disabled]="sliderMax() === 0"
+          >
+            <input
+              matSliderThumb
+              [ngModel]="selectedOrderedIndex()"
+              (ngModelChange)="onSliderChange($event)"
+              aria-labelledby="scenario-slider-label"
+            />
+          </mat-slider>
         </div>
 
         <div class="view-picker" role="group" aria-label="Selección de visualización">
-          <p-selectbutton
-            [options]="viewOptions"
-            [ngModel]="displayMode()"
-            (ngModelChange)="displayMode.set($event)"
-            optionLabel="label"
-            optionValue="value"
+          <mat-button-toggle-group
+            [value]="displayMode()"
+            (change)="displayMode.set($event.value)"
             aria-label="Visualización de los flujos"
-          ></p-selectbutton>
+          >
+            @for (option of viewOptions; track option.value) {
+              <mat-button-toggle [value]="option.value">{{ option.label }}</mat-button-toggle>
+            }
+          </mat-button-toggle-group>
         </div>
 
         @if (displayMode() === 'grid' && matrixRows().length > 0) {

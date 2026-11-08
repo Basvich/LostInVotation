@@ -23,6 +23,11 @@
   margin-bottom: 1rem;
 }
 
+.metric-picker,
+.view-picker {
+  overflow-x: auto;
+}
+
 .matrix-scroll {
   overflow-x: auto;
 }
