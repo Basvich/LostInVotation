@@ -2,6 +2,13 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.11.
 
+## UI components
+
+The application is migrating from PrimeNG to Angular Material 22. The three main
+views use Material cards; other controls still use PrimeNG. Both libraries and
+their themes must remain configured until the remaining controls are migrated.
+The Angular Material theme is configured in `src/styles.scss`.
+
 ## Development server
 
 To start a local development server, run:

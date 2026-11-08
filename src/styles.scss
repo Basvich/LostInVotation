@@ -1,10 +1,21 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
 
 html,
 body {
 	height: 100%;
 }
 
+html {
+	@include mat.theme((
+		color: (primary: mat.$cyan-palette, theme-type: light),
+		typography: ("Segoe UI", Tahoma, Geneva, Verdana, sans-serif),
+	));
+}
+
 body {
 	margin: 0;
+}
+
+mat-card-header {
+	margin-bottom: 1rem;
 }

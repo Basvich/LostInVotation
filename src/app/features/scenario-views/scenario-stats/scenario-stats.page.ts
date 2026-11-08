@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
 import { RouterLink } from '@angular/router';
-import { CardModule } from 'primeng/card';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SankeyModule } from '@swimlane/ngx-charts';
 import { buildPartyOrder } from '../../../core/analysis/scenario-matrix';
@@ -26,7 +26,7 @@ interface IStatsRowView {
 @Component({
   selector: 'app-scenario-stats-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, DecimalPipe, RouterLink, CardModule, SelectButtonModule, SankeyModule],
+  imports: [FormsModule, DecimalPipe, RouterLink, MatCardModule, SelectButtonModule, SankeyModule],
   templateUrl: './scenario-stats.page.html',
   styleUrls: ['./scenario-stats.page.scss'],
 })

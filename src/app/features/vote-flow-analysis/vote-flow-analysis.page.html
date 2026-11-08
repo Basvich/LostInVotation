@@ -1,41 +1,62 @@
 <section class="analysis-shell">
-  <p-card header="Análisis de flujo de votaciones">
-    <div class="toolbar">
-      <button pButton type="button" label="Elegir votaciones" icon="pi pi-sliders-h" (click)="openDialog()"></button>
-      <button pButton type="button" label="Reset" icon="pi pi-refresh" severity="secondary" (click)="reset()"></button>
-    </div>
-
-    <div class="status-row">
-      <span class="status-pill" [class.is-running]="isRunning()">{{ status() }}</span>
-      <span class="status-meta">Zona: {{ selection().zone ?? 'sin seleccionar' }}</span>
-    </div>
-
-    @if (isRunning() || progress().total > 0) {
-      <p-progressbar [value]="progressPercent()"></p-progressbar>
-    }
-
-    @if (selection().oldLink || selection().newLink) {
-      <div class="summary-grid">
-        <article>
-          <h3>Votación antigua</h3>
-          <p>{{ selectedOldLabel() }}</p>
-        </article>
-        <article>
-          <h3>Votación nueva</h3>
-          <p>{{ selectedNewLabel() }}</p>
-        </article>
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <h2 mat-card-title>Análisis de flujo de votaciones</h2>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="toolbar">
+        <button
+          pButton
+          type="button"
+          label="Elegir votaciones"
+          icon="pi pi-sliders-h"
+          (click)="openDialog()"
+        ></button>
+        <button
+          pButton
+          type="button"
+          label="Reset"
+          icon="pi pi-refresh"
+          severity="secondary"
+          (click)="reset()"
+        ></button>
       </div>
-    } @else {
-      <p class="empty-state">Selecciona una zona y dos votaciones para lanzar el análisis.</p>
-    }
 
-    @if (scenarios().length > 0) {
-      <div class="result-placeholder">
-        <h3>Resultado preparado</h3>
-        <p>Hay {{ scenarios().length }} escenario(s) disponible(s). La vista de gráficos vendrá después.</p>
+      <div class="status-row">
+        <span class="status-pill" [class.is-running]="isRunning()">{{ status() }}</span>
+        <span class="status-meta">Zona: {{ selection().zone ?? 'sin seleccionar' }}</span>
       </div>
-    }
-  </p-card>
+
+      @if (isRunning() || progress().total > 0) {
+        <p-progressbar [value]="progressPercent()"></p-progressbar>
+      }
+
+      @if (selection().oldLink || selection().newLink) {
+        <div class="summary-grid">
+          <article>
+            <h3>Votación antigua</h3>
+            <p>{{ selectedOldLabel() }}</p>
+          </article>
+          <article>
+            <h3>Votación nueva</h3>
+            <p>{{ selectedNewLabel() }}</p>
+          </article>
+        </div>
+      } @else {
+        <p class="empty-state">Selecciona una zona y dos votaciones para lanzar el análisis.</p>
+      }
+
+      @if (scenarios().length > 0) {
+        <div class="result-placeholder">
+          <h3>Resultado preparado</h3>
+          <p>
+            Hay {{ scenarios().length }} escenario(s) disponible(s). La vista de gráficos vendrá
+            después.
+          </p>
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
 
   <p-dialog
     [(visible)]="dialogVisible"
@@ -114,8 +135,21 @@
     </div>
 
     <div class="dialog-actions">
-      <button pButton type="button" label="Cancelar" severity="secondary" (click)="dialogVisible.set(false)"></button>
-      <button pButton type="button" label="Analizar" icon="pi pi-play" [disabled]="!canAnalyze()" (click)="runAnalysis()"></button>
+      <button
+        pButton
+        type="button"
+        label="Cancelar"
+        severity="secondary"
+        (click)="dialogVisible.set(false)"
+      ></button>
+      <button
+        pButton
+        type="button"
+        label="Analizar"
+        icon="pi pi-play"
+        [disabled]="!canAnalyze()"
+        (click)="runAnalysis()"
+      ></button>
     </div>
   </p-dialog>
 </section>

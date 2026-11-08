@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
 import { RouterLink } from '@angular/router';
-import { CardModule } from 'primeng/card';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
 import { SankeyModule } from '@swimlane/ngx-charts';
@@ -25,7 +25,7 @@ interface IMatrixRowView {
 @Component({
   selector: 'app-scenario-matrix-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, DecimalPipe, RouterLink, CardModule, SelectButtonModule, SliderModule, SankeyModule],
+  imports: [FormsModule, DecimalPipe, RouterLink, MatCardModule, SelectButtonModule, SliderModule, SankeyModule],
   templateUrl: './scenario-matrix.page.html',
   styleUrls: ['./scenario-matrix.page.scss'],
 })

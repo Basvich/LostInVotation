@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
 import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
 import { SelectModule } from 'primeng/select';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -22,7 +22,7 @@ type VotationOption = { label: string; value: string };
   imports: [
     FormsModule,
     ButtonModule,
-    CardModule,
+    MatCardModule,
     DialogModule,
     SelectModule,
     InputNumberModule,
