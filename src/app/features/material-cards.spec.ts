@@ -30,7 +30,7 @@ describe('Material cards in analysis views', () => {
     expect(openButton).toBeTruthy();
     openButton?.click();
     await fixture.whenStable();
-    expect(element.querySelector('p-dialog')?.textContent).toContain('Seleccionar votaciones');
+    expect(document.querySelector('mat-dialog-container')?.textContent).toContain('Seleccionar votaciones');
   });
 
   it.each([

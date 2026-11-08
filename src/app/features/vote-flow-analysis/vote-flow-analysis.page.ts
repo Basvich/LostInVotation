@@ -1,11 +1,22 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  inject,
+  signal,
+  TemplateRef,
+  viewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { SelectModule } from 'primeng/select';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { ProgressBarModule } from 'primeng/progressbar';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
 import { forkJoin } from 'rxjs';
 import { VoteFlowAnalyzer } from '../../core/analysis/vote-flow-analyzer';
 import { VoteFlowAnalysisStore } from '../../core/state/vote-flow-analysis.store';
@@ -21,25 +32,42 @@ type VotationOption = { label: string; value: string };
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     FormsModule,
-    ButtonModule,
+    MatButtonModule,
     MatCardModule,
-    DialogModule,
-    SelectModule,
-    InputNumberModule,
-    ProgressBarModule,
+    MatProgressBarModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
   ],
   templateUrl: './vote-flow-analysis.page.html',
   styleUrls: ['./vote-flow-analysis.page.scss'],
 })
 export class VoteFlowAnalysisPage {
   private readonly votationsService = inject(VotationsResultsService);
+  private readonly dialog = inject(MatDialog);
+  private readonly viewContainerRef = inject(ViewContainerRef);
+  private readonly dialogTemplate = viewChild.required<TemplateRef<unknown>>('selectionDialog');
+  private dialogRef: MatDialogRef<unknown> | null = null;
   protected readonly store = inject(VoteFlowAnalysisStore);
   private readonly analyzer = new VoteFlowAnalyzer();
 
-  protected readonly dialogVisible = signal(false);
   protected readonly availableVotations = signal<IVotationsInZone[]>([]);
-  protected readonly fidelity = signal(environment.voteFlowAnalysis.defaultFidelityPercentage);
-  protected readonly scenarioCount = signal(environment.voteFlowAnalysis.defaultScenarioCount);
+  protected readonly fidelity = signal<number | null>(environment.voteFlowAnalysis.defaultFidelityPercentage);
+  protected readonly scenarioCount = signal<number | null>(environment.voteFlowAnalysis.defaultScenarioCount);
+  protected readonly validFidelity = computed(() => {
+    const value = this.fidelity();
+    return (
+      value !== null && Number.isFinite(value) && value >= 0 && value <= 1 &&
+      Math.abs(value * 100 - Math.round(value * 100)) < 1e-8
+    );
+  });
+  protected readonly validScenarioCount = computed(() => {
+    const value = this.scenarioCount();
+    return value !== null && Number.isInteger(value) && value >= 1 && value <= 200;
+  });
+  protected readonly fidelityErrorState = { isErrorState: () => !this.validFidelity() };
+  protected readonly scenarioCountErrorState = { isErrorState: () => !this.validScenarioCount() };
 
   protected readonly status = this.store.status;
   protected readonly selection = this.store.selection;
@@ -80,18 +108,43 @@ export class VoteFlowAnalysisPage {
   });
 
   constructor() {
+    inject(DestroyRef).onDestroy(() => this.closeDialog());
     this.loadVotations();
   }
 
   protected openDialog(): void {
-    this.dialogVisible.set(true);
+    if (this.dialogRef) return;
+    const ref = this.dialog.open(this.dialogTemplate(), {
+      viewContainerRef: this.viewContainerRef,
+      width: '42rem',
+      maxWidth: '95vw',
+      disableClose: true,
+      ariaLabelledBy: 'selection-dialog-title',
+    });
+    this.dialogRef = ref;
+    ref.keydownEvents().subscribe((event) => {
+      if (
+        event.key === 'Escape' && !event.defaultPrevented &&
+        !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey
+      ) {
+        event.preventDefault();
+        ref.close();
+      }
+    });
+    ref.afterClosed().subscribe(() => {
+      if (this.dialogRef === ref) this.dialogRef = null;
+    });
+  }
+
+  protected closeDialog(): void {
+    this.dialogRef?.close();
   }
 
   protected reset(): void {
     this.store.reset();
     this.fidelity.set(environment.voteFlowAnalysis.defaultFidelityPercentage);
     this.scenarioCount.set(environment.voteFlowAnalysis.defaultScenarioCount);
-    this.dialogVisible.set(false);
+    this.closeDialog();
   }
 
   protected onZoneChange(zone: string | null): void {
@@ -108,14 +161,22 @@ export class VoteFlowAnalysisPage {
 
   protected canAnalyze(): boolean {
     const selection = this.selection();
-    return Boolean(selection.zone && selection.oldLink && selection.newLink && selection.oldLink !== selection.newLink);
+    return Boolean(
+      selection.zone && selection.oldLink && selection.newLink && selection.oldLink !== selection.newLink &&
+      this.validFidelity() && this.validScenarioCount(),
+    );
   }
 
   protected runAnalysis(): void {
     const selection = this.selection();
-    if (!selection.oldLink || !selection.newLink || selection.oldLink === selection.newLink) {
+    const fidelityPercentage = this.fidelity();
+    const scenarioCount = this.scenarioCount();
+    if (
+      !this.canAnalyze() || !selection.oldLink || !selection.newLink ||
+      fidelityPercentage === null || scenarioCount === null
+    ) {
       this.store.setStatus('error');
-      this.store.setError('Selecciona dos votaciones distintas para lanzar el análisis.');
+      this.store.setError('Selecciona dos votaciones distintas y parámetros válidos para lanzar el análisis.');
       return;
     }
 
@@ -123,11 +184,9 @@ export class VoteFlowAnalysisPage {
     this.store.setScenarios([]);
     this.store.setProgress({ completed: 0, total: 3 });
     this.store.setStatus('running');
-    this.dialogVisible.set(false);
+    this.closeDialog();
 
-    const fidelityPercentage = this.fidelity();
     const { blockSize } = this.store.input();
-    const scenarioCount = this.scenarioCount();
 
     forkJoin({
       oldVotation: this.votationsService.getVotationResult(selection.oldLink),

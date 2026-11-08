@@ -16,6 +16,30 @@
   justify-content: space-between;
 }
 
+.analysis-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.analysis-progress > span {
+  min-width: 3rem;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.dialog-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 1rem;
+}
+
+.dialog-heading button {
+  flex-shrink: 0;
+  font-size: 1.5rem;
+}
+
 .status-pill {
   display: inline-flex;
   align-items: center;
@@ -36,7 +60,7 @@
 .dialog-grid {
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
 }
 
 .summary-grid article {
@@ -44,11 +68,6 @@
   border: 1px solid var(--surface-border, #d1d5db);
   border-radius: 0.9rem;
   background: rgba(255, 255, 255, 0.75);
-}
-
-label {
-  display: grid;
-  gap: 0.4rem;
 }
 
 .empty-state,
