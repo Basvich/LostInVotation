@@ -12,6 +12,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -35,6 +36,7 @@ type VotationOption = { label: string; value: string };
     FormsModule,
     MatButtonModule,
     MatCardModule,
+    MatCheckboxModule,
     MatProgressBarModule,
     MatDialogModule,
     MatFormFieldModule,
@@ -57,6 +59,7 @@ export class VoteFlowAnalysisPage {
   protected readonly fidelity = signal<number | null>(environment.voteFlowAnalysis.defaultFidelityPercentage);
   protected readonly scenarioCount = signal<number | null>(environment.voteFlowAnalysis.defaultScenarioCount);
   protected readonly minimumPartyPercentage = signal<number | null>(environment.voteFlowAnalysis.defaultMinimumPartyPercentage);
+  protected readonly simplifyReciprocalFlows = signal(this.store.input().simplifyReciprocalFlows);
   protected readonly validFidelity = computed(() => {
     const value = this.fidelity();
     return (
@@ -153,6 +156,7 @@ export class VoteFlowAnalysisPage {
     this.fidelity.set(environment.voteFlowAnalysis.defaultFidelityPercentage);
     this.scenarioCount.set(environment.voteFlowAnalysis.defaultScenarioCount);
     this.minimumPartyPercentage.set(environment.voteFlowAnalysis.defaultMinimumPartyPercentage);
+    this.simplifyReciprocalFlows.set(environment.voteFlowAnalysis.defaultSimplifyReciprocalFlows);
     this.closeDialog();
   }
 
@@ -181,6 +185,7 @@ export class VoteFlowAnalysisPage {
     const fidelityPercentage = this.fidelity();
     const scenarioCount = this.scenarioCount();
     const minimumPartyPercentage = this.minimumPartyPercentage();
+    const simplifyReciprocalFlows = this.simplifyReciprocalFlows();
     if (
       !this.canAnalyze() || !selection.oldLink || !selection.newLink ||
       fidelityPercentage === null || scenarioCount === null || minimumPartyPercentage === null
@@ -214,6 +219,7 @@ export class VoteFlowAnalysisPage {
               newVotation: groupedNewVotation,
               fidelityPercentage,
               blockSize,
+              simplifyReciprocalFlows,
             },
             scenarioCount,
           );
@@ -223,6 +229,7 @@ export class VoteFlowAnalysisPage {
             minimumPartyPercentage,
             blockSize,
             scenarioCount,
+            simplifyReciprocalFlows,
           });
         } catch {
           this.store.setStatus('error');

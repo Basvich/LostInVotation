@@ -14,6 +14,7 @@ export interface IVoteFlowAnalysisInput {
   minimumPartyPercentage: number;
   blockSize: number;
   scenarioCount: number;
+  simplifyReciprocalFlows: boolean;
 }
 
 export type VoteFlowAnalysisStatus = 'idle' | 'selecting' | 'ready' | 'running' | 'done' | 'error';

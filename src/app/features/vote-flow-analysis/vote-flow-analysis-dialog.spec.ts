@@ -130,6 +130,80 @@ describe('selection dialog', () => {
     }
   });
 
+  it('passes the checked option to analysis, retains changes, and resets it to enabled', async () => {
+    const partyA = { id: 'a', name: 'A' };
+    const partyB = { id: 'b', name: 'B' };
+    const votation: IVotationResult = {
+      votation: { date: new Date('2020-01-01'), name: 'Elección', zone: 'Zona A' },
+      totalVotes: 200,
+      totalVotesToParties: 200,
+      votesToParties: [
+        { party: partyA, numberOfVotes: 100 },
+        { party: partyB, numberOfVotes: 100 },
+      ],
+    };
+    vi.spyOn(TestBed.inject(VotationsResultsService), 'getVotationResult').mockReturnValue(of(votation));
+    const random = vi.spyOn(Math, 'random').mockReturnValue(0.5);
+    try {
+      const store = TestBed.inject(VoteFlowAnalysisStore);
+      store.setSelection({ zone: 'Zona A', oldLink: 'old', newLink: 'new' });
+      store.setInput({ blockSize: 1 });
+      const fixture = TestBed.createComponent(VoteFlowAnalysisPage);
+      await fixture.whenStable();
+      const element = fixture.nativeElement as HTMLElement;
+      const open = () => element.querySelector<HTMLButtonElement>('.toolbar button')?.click();
+      open();
+      await fixture.whenStable();
+      let checkbox = document.querySelector<HTMLInputElement>('mat-dialog-container input[type=checkbox]');
+      expect(checkbox?.checked).toBe(true);
+      expect(checkbox?.getAttribute('aria-describedby')).toContain('simplify-flows-description');
+      const fidelity = document.querySelector<HTMLInputElement>('mat-dialog-container input[type=number]');
+      if (!fidelity) throw new Error('Fidelity input not found');
+      fidelity.value = '0';
+      fidelity.dispatchEvent(new Event('input', { bubbles: true }));
+      await fixture.whenStable();
+      document.querySelector<HTMLButtonElement>('.dialog-actions button:last-child')?.click();
+      await fixture.whenStable();
+      expect(store.status()).toBe('done');
+      expect(store.input().simplifyReciprocalFlows).toBe(true);
+      expect(store.scenarios().every(({ flows }) =>
+        flows.length === 2 && flows.every((flow) => flow.from.id === flow.to.id && flow.votes === 50),
+      )).toBe(true);
+
+      open();
+      await fixture.whenStable();
+      checkbox = document.querySelector<HTMLInputElement>('mat-dialog-container input[type=checkbox]');
+      checkbox?.click();
+      await fixture.whenStable();
+      expect(checkbox?.checked).toBe(false);
+      document.querySelector<HTMLButtonElement>('.dialog-actions button:last-child')?.click();
+      await fixture.whenStable();
+      expect(store.status()).toBe('done');
+      expect(store.input().simplifyReciprocalFlows).toBe(false);
+      expect(store.scenarios().every(({ flows }) =>
+        flows.some((flow) => flow.from.id === 'a' && flow.to.id === 'b') &&
+        flows.some((flow) => flow.from.id === 'b' && flow.to.id === 'a'),
+      )).toBe(true);
+
+      fixture.destroy();
+      const restoredFixture = TestBed.createComponent(VoteFlowAnalysisPage);
+      await restoredFixture.whenStable();
+      const restoredElement = restoredFixture.nativeElement as HTMLElement;
+      const openRestored = () => restoredElement.querySelector<HTMLButtonElement>('.toolbar button')?.click();
+      openRestored();
+      await restoredFixture.whenStable();
+      expect(document.querySelector<HTMLInputElement>('mat-dialog-container input[type=checkbox]')?.checked).toBe(false);
+      restoredElement.querySelector<HTMLButtonElement>('.toolbar button:last-child')?.click();
+      await restoredFixture.whenStable();
+      openRestored();
+      await restoredFixture.whenStable();
+      expect(document.querySelector<HTMLInputElement>('mat-dialog-container input[type=checkbox]')?.checked).toBe(true);
+      expect(store.input().simplifyReciprocalFlows).toBe(true);
+    } finally {
+      random.mockRestore();
+    }
+  });
+
   it('groups each election independently before storing and analyzing it', async () => {
     const oldVotation: IVotationResult = {
       votation: { date: new Date('2018-01-01'), name: 'Antigua', zone: 'Zona A' },

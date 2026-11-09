@@ -144,6 +144,17 @@
           <mat-error>Introduce un porcentaje entre 0 y 100 con hasta dos decimales.</mat-error>
         }
       </mat-form-field>
+      <div>
+        <mat-checkbox
+          [checked]="simplifyReciprocalFlows()"
+          (change)="simplifyReciprocalFlows.set($event.checked)"
+          aria-describedby="simplify-flows-description"
+        >Simplificar flujos recíprocos</mat-checkbox>
+        <p id="simplify-flows-description">
+          Compensa los flujos en sentidos opuestos entre cada par de partidos.
+          Los totales resultantes pueden ser inferiores a los votos originales.
+        </p>
+      </div>
     </mat-dialog-content>
 
     <mat-dialog-actions class="dialog-actions" align="end">

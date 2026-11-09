@@ -10,6 +10,9 @@
           <a routerLink="/analisis-flujo">Análisis de flujo</a> para poder explorarlos aquí.
         </p>
       } @else {
+        @if (store.input().simplifyReciprocalFlows) {
+          <p>Flujos recíprocos simplificados: los totales pueden ser inferiores a los votos originales.</p>
+        }
         <div class="scenario-nav" role="group" aria-label="Navegación entre escenarios">
           <span class="scenario-label" id="scenario-slider-label">
             Escenario {{ scenarioPosition() }} de {{ scenarioCount() }}

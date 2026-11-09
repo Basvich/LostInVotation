@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { VoteFlowAnalyzer } from './vote-flow-analyzer';
 import { IParty, IVotationResult } from '../models/party';
 import { IVoteFlowInput } from '../models/vote-flow';
@@ -33,11 +33,42 @@ function sumTo(flows: { from: IParty; to: IParty; votes: number }[], partyId: st
 // Tests
 // ---------------------------------------------------------------------------
 
-const analyzer = new VoteFlowAnalyzer();
+const engine = new VoteFlowAnalyzer();
+const analyzer = {
+  generateScenarios: (input: IVoteFlowInput, count: number) =>
+    engine.generateScenarios({ ...input, simplifyReciprocalFlows: false }, count),
+};
 const pp = makeParty('pp', 'PP');
 const psoe = makeParty('psoe', 'PSOE');
 
 describe('VoteFlowAnalyzer', () => {
+  it('simplifies every generated scenario by default and preserves the original when disabled', () => {
+    const input: IVoteFlowInput = {
+      oldVotation: makeVotation([{ party: pp, votes: 100 }, { party: psoe, votes: 100 }]),
+      newVotation: makeVotation([{ party: pp, votes: 100 }, { party: psoe, votes: 100 }]),
+      fidelityPercentage: 0,
+      blockSize: 1,
+    };
+    const random = vi.spyOn(Math, 'random').mockReturnValue(0.5);
+    try {
+      const original = engine.generateScenarios({ ...input, simplifyReciprocalFlows: false }, 3);
+      const simplified = engine.generateScenarios(input, 3);
+      const explicit = engine.generateScenarios({ ...input, simplifyReciprocalFlows: true }, 3);
+      expect(original.every(({ flows }) =>
+        flows.some((flow) => flow.from.id === 'pp' && flow.to.id === 'psoe') &&
+        flows.some((flow) => flow.from.id === 'psoe' && flow.to.id === 'pp'),
+      )).toBe(true);
+      expect(simplified).toEqual(explicit);
+      for (const scenario of simplified) {
+        expect(scenario.flows).toEqual([
+          { from: pp, to: pp, votes: 50 },
+          { from: psoe, to: psoe, votes: 50 },
+        ]);
+      }
+    } finally {
+      random.mockRestore();
+    }
+  });
   describe('generateScenarios — invariants', () => {
     it('should return exactly the requested number of scenarios', () => {
       const input: IVoteFlowInput = {

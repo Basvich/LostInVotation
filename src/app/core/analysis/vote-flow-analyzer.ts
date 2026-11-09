@@ -1,5 +1,6 @@
 import { IParty, IVotationResult, NotVotingParty } from '../models/party';
 import { IPartyFlow, IVoteFlowInput, IVoteFlowScenario } from '../models/vote-flow';
+import { simplifyReciprocalFlows } from './simplify-reciprocal-flows';
 
 interface PartyVotes {
   party: IParty;
@@ -43,7 +44,7 @@ export class VoteFlowAnalyzer {
     }
 
     const allFlows = [...fixedFlows, ...blockFlows].filter((f) => f.votes > 0);
-    return { flows: allFlows };
+    return { flows: (input.simplifyReciprocalFlows ?? true) ? simplifyReciprocalFlows(allFlows) : allFlows };
   }
 
   // ---------------------------------------------------------------------------

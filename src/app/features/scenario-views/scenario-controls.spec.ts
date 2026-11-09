@@ -178,4 +178,18 @@ describe('scenario controls', () => {
       expect(element.querySelector('tbody')?.textContent).toContain('10');
     },
   );
+
+  it.each([ScenarioMatrixPage, ScenarioStatsPage])(
+    'explains when reciprocal flows were simplified',
+    async (page) => {
+      const store = TestBed.inject(VoteFlowAnalysisStore);
+      const fixture = TestBed.createComponent<ScenarioMatrixPage | ScenarioStatsPage>(page);
+      await fixture.whenStable();
+      const element = fixture.nativeElement as HTMLElement;
+      expect(element.textContent).toContain('inferiores a los votos originales');
+      store.setInput({ simplifyReciprocalFlows: false });
+      await fixture.whenStable();
+      expect(element.textContent).not.toContain('inferiores a los votos originales');
+    },
+  );
 });

@@ -19,6 +19,16 @@ independiente de esta agrupación.
 En los diagramas Sankey, un mismo partido utiliza el mismo color en origen y
 destino; los colores se mantienen al cambiar de escenario o de estadístico.
 
+## Simplificación de flujos
+
+La opción «Simplificar flujos recíprocos» está activada por defecto. Tras generar
+cada escenario se compensan los flujos en sentidos opuestos entre cada par de
+partidos, incluidos «Otros partidos» y «No Votando». Solo se conserva la
+diferencia en el sentido mayor; los flujos hacia el mismo partido no cambian.
+Los escenarios y sus estadísticas muestran, por tanto, flujos netos: los totales
+de filas y columnas pueden ser inferiores a los votos originales. Desactiva la
+opción para conservar los flujos completos sin compensar.
+
 ## Development server
 
 To start a local development server, run:

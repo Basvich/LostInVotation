@@ -10,6 +10,9 @@
           <a routerLink="/analisis-flujo">Análisis de flujo</a> para poder explorarlos aquí.
         </p>
       } @else {
+        @if (store.input().simplifyReciprocalFlows) {
+          <p>Estadísticos de flujos recíprocos simplificados: los totales pueden ser inferiores a los votos originales.</p>
+        }
         <div class="metric-picker" role="group" aria-label="Selección de estadístico">
           <span class="metric-label" id="metric-picker-label">
             Estadístico ({{ scenarioCount() }} escenario(s) analizados)

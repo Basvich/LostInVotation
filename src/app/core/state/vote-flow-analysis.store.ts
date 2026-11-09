@@ -22,6 +22,7 @@ const DEFAULT_STATE: IVoteFlowAnalysisState = {
     minimumPartyPercentage: environment.voteFlowAnalysis.defaultMinimumPartyPercentage,
     blockSize: 1000,
     scenarioCount: environment.voteFlowAnalysis.defaultScenarioCount,
+    simplifyReciprocalFlows: environment.voteFlowAnalysis.defaultSimplifyReciprocalFlows,
   },
   progress: {
     completed: 0,
