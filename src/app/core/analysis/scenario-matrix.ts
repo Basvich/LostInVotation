@@ -59,6 +59,22 @@ export function buildPartyOrder(
   return order;
 }
 
+/** Incluye también los destinos sintéticos presentes únicamente en los flujos. */
+export function buildVisibleDestinationIndices(
+  parties: IParty[],
+  newVotation: IVotationResult | null,
+  scenarios: IVoteFlowScenario[],
+): number[] {
+  const destinationIds = new Set((newVotation?.votesToParties ?? []).map(({ party }) => party.id));
+  for (const scenario of scenarios) {
+    for (const flow of scenario.flows) destinationIds.add(flow.to.id);
+  }
+  return parties.reduce<number[]>((indices, party, index) => {
+    if (destinationIds.has(party.id)) indices.push(index);
+    return indices;
+  }, []);
+}
+
 /** Construye la matriz de flujos de un escenario según el orden de partidos dado. */
 export function buildScenarioMatrix(scenario: IVoteFlowScenario, parties: IParty[]): IScenarioMatrix {
   const indexById = new Map<string, number>(parties.map((party, index) => [party.id, index]));

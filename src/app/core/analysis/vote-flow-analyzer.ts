@@ -66,11 +66,11 @@ export class VoteFlowAnalyzer {
     const notVoting = new NotVotingParty();
     const delta = input.newVotation.totalVotesToParties - input.oldVotation.totalVotesToParties;
     if (delta > 0) {
-      oldMap.set(notVoting.id, { party: notVoting, votes: 0 });
-      newMap.set(notVoting.id, { party: notVoting, votes: delta });
-    } else if (delta < 0) {
-      oldMap.set(notVoting.id, { party: notVoting, votes: -delta });
+      oldMap.set(notVoting.id, { party: notVoting, votes: delta });
       newMap.set(notVoting.id, { party: notVoting, votes: 0 });
+    } else if (delta < 0) {
+      oldMap.set(notVoting.id, { party: notVoting, votes: 0 });
+      newMap.set(notVoting.id, { party: notVoting, votes: -delta });
     }
 
     // Ensure every party in one map is also present in the other (with 0 votes)

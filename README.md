@@ -7,6 +7,15 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 The application uses Angular Material 22 for its UI components. The Angular
 Material theme is configured in `src/styles.scss`.
 
+## Agrupación de partidos
+
+Al seleccionar las votaciones, el porcentaje mínimo por partido es del 5 % por
+defecto y puede ajustarse entre 0 y 100. En cada votación se compara por separado
+el número de votos de cada partido con el total de votos contabilizados: los
+partidos por debajo del umbral se agrupan en «Otros partidos». Un partido que
+alcanza exactamente el umbral permanece separado. «No Votando» se mantiene
+independiente de esta agrupación.
+
 ## Development server
 
 To start a local development server, run:

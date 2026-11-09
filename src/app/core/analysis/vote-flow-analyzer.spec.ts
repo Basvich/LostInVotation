@@ -123,55 +123,28 @@ describe('VoteFlowAnalyzer', () => {
   });
 
   describe('NotVotingParty — delta handling', () => {
-    it('positive delta: NotVotingParty appears as destination with correct votes', () => {
-      // 5000 new voters joined (totalVotesToParties grew by 5000)
-      const input: IVoteFlowInput = {
-        oldVotation: makeVotation([{ party: pp, votes: 5000 }], 5000),
-        newVotation: makeVotation([{ party: pp, votes: 5000 }], 10000),
-        fidelityPercentage: 0,
-        blockSize: 1000,
-      };
-      // newVotation.totalVotesToParties - oldVotation.totalVotesToParties = 5000
-      // But votesToParties for newVotation only has pp with 5000 — the remaining 5000
-      // are NotVotingParty in new. We need to reflect this in makeVotation properly.
-      // Re-build with explicit totalVotesToParties:
-      const oldV: IVotationResult = {
-        votation: { date: new Date(), name: 'T', zone: 'z' },
-        votesToParties: [{ party: pp, numberOfVotes: 5000 }],
-        totalVotes: 5000,
-        totalVotesToParties: 5000,
-      };
-      const newV: IVotationResult = {
-        votation: { date: new Date(), name: 'T', zone: 'z' },
-        votesToParties: [{ party: pp, numberOfVotes: 5000 }],
-        totalVotes: 10000,
-        totalVotesToParties: 10000,
-      };
-      const [scenario] = analyzer.generateScenarios(
-        { oldVotation: oldV, newVotation: newV, fidelityPercentage: 0, blockSize: 1000 },
-        1,
-      );
-      expect(sumTo(scenario.flows, 'not-voting')).toBe(5000);
-    });
-
-    it('negative delta: NotVotingParty appears as source with correct votes', () => {
-      const oldV: IVotationResult = {
-        votation: { date: new Date(), name: 'T', zone: 'z' },
-        votesToParties: [{ party: pp, numberOfVotes: 5000 }],
-        totalVotes: 10000,
-        totalVotesToParties: 10000,
-      };
-      const newV: IVotationResult = {
-        votation: { date: new Date(), name: 'T', zone: 'z' },
-        votesToParties: [{ party: pp, numberOfVotes: 5000 }],
-        totalVotes: 5000,
-        totalVotesToParties: 5000,
-      };
+    it('positive delta: NotVotingParty appears as source with correct votes', () => {
+      const oldV = makeVotation([{ party: pp, votes: 5000 }]);
+      const newV = makeVotation([{ party: pp, votes: 10000 }]);
       const [scenario] = analyzer.generateScenarios(
         { oldVotation: oldV, newVotation: newV, fidelityPercentage: 0, blockSize: 1000 },
         1,
       );
       expect(sumFrom(scenario.flows, 'not-voting')).toBe(5000);
+      expect(sumFrom(scenario.flows, 'pp')).toBe(5000);
+      expect(sumTo(scenario.flows, 'pp')).toBe(10000);
+    });
+
+    it('negative delta: NotVotingParty appears as destination with correct votes', () => {
+      const oldV = makeVotation([{ party: pp, votes: 10000 }]);
+      const newV = makeVotation([{ party: pp, votes: 5000 }]);
+      const [scenario] = analyzer.generateScenarios(
+        { oldVotation: oldV, newVotation: newV, fidelityPercentage: 0, blockSize: 1000 },
+        1,
+      );
+      expect(sumTo(scenario.flows, 'not-voting')).toBe(5000);
+      expect(sumFrom(scenario.flows, 'pp')).toBe(10000);
+      expect(sumTo(scenario.flows, 'pp')).toBe(5000);
     });
   });
 

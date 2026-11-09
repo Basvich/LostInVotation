@@ -9,6 +9,7 @@ import { SankeyModule } from '@swimlane/ngx-charts';
 import {
   buildPartyOrder,
   buildScenarioMatrix,
+  buildVisibleDestinationIndices,
   sortScenariosByPartyChanges,
 } from '../../../core/analysis/scenario-matrix';
 import { buildScenarioSankeyLinks, ScenarioDisplayMode } from '../../../core/analysis/scenario-sankey';
@@ -83,19 +84,9 @@ export class ScenarioMatrixPage {
     );
   });
 
-  /**
-   * Índices de columnas a mostrar: se excluyen los partidos que no existen en la votación nueva,
-   * ya que nunca pueden recibir votos y sus columnas quedarían siempre a cero.
-   */
-  protected readonly visibleColumnIndices = computed(() => {
-    const newPartyIds = new Set(
-      (this.input().newVotation?.votesToParties ?? []).map((vtp) => vtp.party.id),
-    );
-    return this.partyOrder().reduce<number[]>((indices, party, index) => {
-      if (newPartyIds.has(party.id)) indices.push(index);
-      return indices;
-    }, []);
-  });
+  protected readonly visibleColumnIndices = computed(() =>
+    buildVisibleDestinationIndices(this.partyOrder(), this.input().newVotation, this.scenarios()),
+  );
 
   protected readonly matrixRows = computed<IMatrixRowView[]>(() => {
     const matrix = this.currentMatrix();

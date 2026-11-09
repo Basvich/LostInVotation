@@ -19,6 +19,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { forkJoin } from 'rxjs';
 import { VoteFlowAnalyzer } from '../../core/analysis/vote-flow-analyzer';
+import { groupMinorParties } from '../../core/analysis/group-minor-parties';
 import { VoteFlowAnalysisStore } from '../../core/state/vote-flow-analysis.store';
 import { VotationsResultsService } from '../../core/api/votations-results-service';
 import { IVotationsInZone } from '../../core/models/availableData';
@@ -55,6 +56,7 @@ export class VoteFlowAnalysisPage {
   protected readonly availableVotations = signal<IVotationsInZone[]>([]);
   protected readonly fidelity = signal<number | null>(environment.voteFlowAnalysis.defaultFidelityPercentage);
   protected readonly scenarioCount = signal<number | null>(environment.voteFlowAnalysis.defaultScenarioCount);
+  protected readonly minimumPartyPercentage = signal<number | null>(environment.voteFlowAnalysis.defaultMinimumPartyPercentage);
   protected readonly validFidelity = computed(() => {
     const value = this.fidelity();
     return (
@@ -66,8 +68,14 @@ export class VoteFlowAnalysisPage {
     const value = this.scenarioCount();
     return value !== null && Number.isInteger(value) && value >= 1 && value <= 200;
   });
+  protected readonly validMinimumPartyPercentage = computed(() => {
+    const value = this.minimumPartyPercentage();
+    return value !== null && Number.isFinite(value) && value >= 0 && value <= 100 &&
+      Math.abs(value * 100 - Math.round(value * 100)) < 1e-8;
+  });
   protected readonly fidelityErrorState = { isErrorState: () => !this.validFidelity() };
   protected readonly scenarioCountErrorState = { isErrorState: () => !this.validScenarioCount() };
+  protected readonly minimumPartyPercentageErrorState = { isErrorState: () => !this.validMinimumPartyPercentage() };
 
   protected readonly status = this.store.status;
   protected readonly selection = this.store.selection;
@@ -144,6 +152,7 @@ export class VoteFlowAnalysisPage {
     this.store.reset();
     this.fidelity.set(environment.voteFlowAnalysis.defaultFidelityPercentage);
     this.scenarioCount.set(environment.voteFlowAnalysis.defaultScenarioCount);
+    this.minimumPartyPercentage.set(environment.voteFlowAnalysis.defaultMinimumPartyPercentage);
     this.closeDialog();
   }
 
@@ -163,7 +172,7 @@ export class VoteFlowAnalysisPage {
     const selection = this.selection();
     return Boolean(
       selection.zone && selection.oldLink && selection.newLink && selection.oldLink !== selection.newLink &&
-      this.validFidelity() && this.validScenarioCount(),
+      this.validFidelity() && this.validScenarioCount() && this.validMinimumPartyPercentage(),
     );
   }
 
@@ -171,9 +180,10 @@ export class VoteFlowAnalysisPage {
     const selection = this.selection();
     const fidelityPercentage = this.fidelity();
     const scenarioCount = this.scenarioCount();
+    const minimumPartyPercentage = this.minimumPartyPercentage();
     if (
       !this.canAnalyze() || !selection.oldLink || !selection.newLink ||
-      fidelityPercentage === null || scenarioCount === null
+      fidelityPercentage === null || scenarioCount === null || minimumPartyPercentage === null
     ) {
       this.store.setStatus('error');
       this.store.setError('Selecciona dos votaciones distintas y parámetros válidos para lanzar el análisis.');
@@ -194,24 +204,26 @@ export class VoteFlowAnalysisPage {
     }).subscribe({
       next: ({ oldVotation, newVotation }) => {
         this.store.setProgress({ completed: 2, total: 3 });
-        this.store.setSourceData(oldVotation, newVotation);
-        this.store.setInput({
-          fidelityPercentage,
-          blockSize,
-          scenarioCount,
-        });
-
         let scenarios;
         try {
+          const groupedOldVotation = groupMinorParties(oldVotation, minimumPartyPercentage);
+          const groupedNewVotation = groupMinorParties(newVotation, minimumPartyPercentage);
           scenarios = this.analyzer.generateScenarios(
             {
-              oldVotation,
-              newVotation,
+              oldVotation: groupedOldVotation,
+              newVotation: groupedNewVotation,
               fidelityPercentage,
               blockSize,
             },
             scenarioCount,
           );
+          this.store.setSourceData(groupedOldVotation, groupedNewVotation);
+          this.store.setInput({
+            fidelityPercentage,
+            minimumPartyPercentage,
+            blockSize,
+            scenarioCount,
+          });
         } catch {
           this.store.setStatus('error');
           this.store.setProgress({ completed: 0, total: 0 });

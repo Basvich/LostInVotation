@@ -5,6 +5,8 @@ import { firstValueFrom, NEVER, of } from 'rxjs';
 import { VotationsResultsService } from '../../core/api/votations-results-service';
 import { VoteFlowAnalysisStore } from '../../core/state/vote-flow-analysis.store';
 import { VoteFlowAnalysisPage } from './vote-flow-analysis.page';
+import { IVotationResult } from '../../core/models/party';
+import { OTHER_PARTIES } from '../../core/analysis/group-minor-parties';
 
 describe('selection dialog', () => {
   beforeEach(async () => {
@@ -76,7 +78,8 @@ describe('selection dialog', () => {
     await fixture.whenStable();
     const inputs = document.querySelectorAll<HTMLInputElement>('mat-dialog-container input[type=number]');
     const analyze = document.querySelector<HTMLButtonElement>('.dialog-actions button:last-child');
-    expect(inputs.length).toBe(2);
+    expect(inputs.length).toBe(3);
+    expect(inputs[2].value).toBe('5');
     expect(analyze?.disabled).toBe(false);
 
     for (const value of ['', '-0.1', '1.01', '0.123']) {
@@ -110,6 +113,81 @@ describe('selection dialog', () => {
     inputs[1].dispatchEvent(new Event('input', { bubbles: true }));
     await fixture.whenStable();
     expect(analyze?.disabled).toBe(false);
+
+    for (const value of ['', '-1', '100.01', '0.123']) {
+      inputs[2].value = value;
+      inputs[2].dispatchEvent(new Event('input', { bubbles: true }));
+      await fixture.whenStable();
+      expect(analyze?.disabled).toBe(true);
+      expect(document.querySelector('mat-error')?.textContent).toContain('entre 0 y 100');
+      expect(inputs[2].getAttribute('aria-describedby')).toContain(document.querySelector('mat-error')?.id);
+    }
+    for (const value of ['0', '100']) {
+      inputs[2].value = value;
+      inputs[2].dispatchEvent(new Event('input', { bubbles: true }));
+      await fixture.whenStable();
+      expect(analyze?.disabled).toBe(false);
+    }
+  });
+
+  it('groups each election independently before storing and analyzing it', async () => {
+    const oldVotation: IVotationResult = {
+      votation: { date: new Date('2018-01-01'), name: 'Antigua', zone: 'Zona A' },
+      totalVotes: 100,
+      totalVotesToParties: 100,
+      votesToParties: [
+        { party: { id: 'a', name: 'A' }, numberOfVotes: 96 },
+        { party: { id: 'b', name: 'B' }, numberOfVotes: 4 },
+      ],
+    };
+    const newVotation: IVotationResult = {
+      ...oldVotation,
+      votation: { ...oldVotation.votation, name: 'Nueva' },
+      votesToParties: [
+        { party: { id: 'a', name: 'A' }, numberOfVotes: 94 },
+        { party: { id: 'b', name: 'B' }, numberOfVotes: 6 },
+      ],
+    };
+    const service = TestBed.inject(VotationsResultsService);
+    vi.spyOn(service, 'getVotationResult').mockImplementation((link) =>
+      of(link === 'old' ? oldVotation : newVotation),
+    );
+    const store = TestBed.inject(VoteFlowAnalysisStore);
+    store.setSelection({ zone: 'Zona A', oldLink: 'old', newLink: 'new' });
+    store.setInput({ blockSize: 1 });
+    const fixture = TestBed.createComponent(VoteFlowAnalysisPage);
+    await fixture.whenStable();
+    (fixture.nativeElement as HTMLElement).querySelector<HTMLButtonElement>('.toolbar button')?.click();
+    await fixture.whenStable();
+    document.querySelector<HTMLButtonElement>('.dialog-actions button:last-child')?.click();
+    await fixture.whenStable();
+
+    expect(store.status()).toBe('done');
+    expect(store.input().minimumPartyPercentage).toBe(5);
+    expect(store.input().oldVotation?.votesToParties).toEqual([
+      oldVotation.votesToParties[0],
+      { party: OTHER_PARTIES, numberOfVotes: 4 },
+    ]);
+    expect(store.input().newVotation?.votesToParties).toEqual(newVotation.votesToParties);
+    expect(store.scenarios()[0].flows.some((flow) => flow.from.id === OTHER_PARTIES.id)).toBe(true);
+    expect(store.scenarios()[0].flows.some((flow) => flow.to.id === 'b')).toBe(true);
+
+    (fixture.nativeElement as HTMLElement).querySelector<HTMLButtonElement>('.toolbar button')?.click();
+    await fixture.whenStable();
+    const threshold = document.querySelectorAll<HTMLInputElement>('mat-dialog-container input[type=number]')[2];
+    threshold.value = '3';
+    threshold.dispatchEvent(new Event('input', { bubbles: true }));
+    await fixture.whenStable();
+    document.querySelector<HTMLButtonElement>('.dialog-actions button:last-child')?.click();
+    await fixture.whenStable();
+    expect(store.status()).toBe('done');
+    expect(store.input().minimumPartyPercentage).toBe(3);
+    expect(store.input().oldVotation?.votesToParties).toEqual(oldVotation.votesToParties);
+
+    (fixture.nativeElement as HTMLElement).querySelector<HTMLButtonElement>('.toolbar button:last-child')?.click();
+    (fixture.nativeElement as HTMLElement).querySelector<HTMLButtonElement>('.toolbar button')?.click();
+    await fixture.whenStable();
+    expect(document.querySelectorAll<HTMLInputElement>('mat-dialog-container input[type=number]')[2].value).toBe('5');
   });
 
   it('ignores backdrop clicks, closes on Escape and restores focus', async () => {

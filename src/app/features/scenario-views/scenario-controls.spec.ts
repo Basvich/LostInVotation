@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-import { IVotationResult } from '../../core/models/party';
+import { IVotationResult, NotVotingParty } from '../../core/models/party';
 import { VoteFlowAnalysisStore } from '../../core/state/vote-flow-analysis.store';
 import { ScenarioMatrixPage } from './scenario-matrix/scenario-matrix.page';
 import { ScenarioStatsPage } from './scenario-stats/scenario-stats.page';
@@ -99,4 +99,19 @@ describe('scenario controls', () => {
     expect(element.querySelector('.matrix-table')).toBeTruthy();
     expect(element.querySelector('ngx-charts-sankey')).toBeNull();
   });
+
+  it.each([ScenarioMatrixPage, ScenarioStatsPage])(
+    'shows non-voting destinations independently in both result views',
+    async (page) => {
+      const notVoting = new NotVotingParty();
+      TestBed.inject(VoteFlowAnalysisStore).setScenarios([
+        { flows: [{ from: party, to: notVoting, votes: 10 }] },
+      ]);
+      const fixture = TestBed.createComponent<ScenarioMatrixPage | ScenarioStatsPage>(page);
+      await fixture.whenStable();
+      const element = fixture.nativeElement as HTMLElement;
+      expect(element.querySelector('thead')?.textContent).toContain('No Votando');
+      expect(element.querySelector('tbody')?.textContent).toContain('10');
+    },
+  );
 });

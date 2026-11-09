@@ -4,7 +4,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { RouterLink } from '@angular/router';
 import { SankeyModule } from '@swimlane/ngx-charts';
-import { buildPartyOrder } from '../../../core/analysis/scenario-matrix';
+import { buildPartyOrder, buildVisibleDestinationIndices } from '../../../core/analysis/scenario-matrix';
 import { buildScenarioSankeyLinks, ScenarioDisplayMode } from '../../../core/analysis/scenario-sankey';
 import {
   buildScenarioStatsMatrix,
@@ -55,19 +55,9 @@ export class ScenarioStatsPage {
     buildPartyOrder(this.input().oldVotation, this.input().newVotation, this.scenarios()),
   );
 
-  /**
-   * Índices de columnas a mostrar: se excluyen los partidos que no existen en la votación nueva,
-   * ya que nunca pueden recibir votos y sus columnas quedarían siempre a cero.
-   */
-  protected readonly visibleColumnIndices = computed(() => {
-    const newPartyIds = new Set(
-      (this.input().newVotation?.votesToParties ?? []).map((vtp) => vtp.party.id),
-    );
-    return this.partyOrder().reduce<number[]>((indices, party, index) => {
-      if (newPartyIds.has(party.id)) indices.push(index);
-      return indices;
-    }, []);
-  });
+  protected readonly visibleColumnIndices = computed(() =>
+    buildVisibleDestinationIndices(this.partyOrder(), this.input().newVotation, this.scenarios()),
+  );
 
   /** Matriz de estadísticos (min/max/media/moda) agregada sobre todos los escenarios disponibles. */
   protected readonly statsMatrix = computed(() =>

@@ -4,5 +4,6 @@ export const environment = {
   voteFlowAnalysis: {
     defaultFidelityPercentage: 0.5,
     defaultScenarioCount: 20,
+    defaultMinimumPartyPercentage: 5,
   },
 };

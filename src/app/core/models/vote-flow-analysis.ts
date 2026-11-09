@@ -11,6 +11,7 @@ export interface IVoteFlowAnalysisInput {
   oldVotation: IVotationResult | null;
   newVotation: IVotationResult | null;
   fidelityPercentage: number;
+  minimumPartyPercentage: number;
   blockSize: number;
   scenarioCount: number;
 }

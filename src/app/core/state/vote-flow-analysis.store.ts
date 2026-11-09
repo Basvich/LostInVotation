@@ -19,6 +19,7 @@ const DEFAULT_STATE: IVoteFlowAnalysisState = {
     oldVotation: null,
     newVotation: null,
     fidelityPercentage: environment.voteFlowAnalysis.defaultFidelityPercentage,
+    minimumPartyPercentage: environment.voteFlowAnalysis.defaultMinimumPartyPercentage,
     blockSize: 1000,
     scenarioCount: environment.voteFlowAnalysis.defaultScenarioCount,
   },
