@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { IParty } from '../models/party';
-import { buildScenarioSankeyLinks } from './scenario-sankey';
+import { buildScenarioSankeyColors, buildScenarioSankeyLinks } from './scenario-sankey';
 
 const pp: IParty = { id: 'pp', name: 'PP' };
 const psoe: IParty = { id: 'psoe', name: 'PSOE' };
@@ -21,5 +21,25 @@ describe('buildScenarioSankeyLinks', () => {
       { source: 'Origen: PP', target: 'Destino: PSOE', value: 25 },
       { source: 'Origen: PSOE', target: 'Destino: PSOE', value: 50 },
     ]);
+  });
+
+  describe('buildScenarioSankeyColors', () => {
+    it('assigns the same color to both sides, including synthetic and one-sided parties', () => {
+      const parties = [pp, psoe, { id: 'not-voting', name: 'No Votando' }, { id: 'others', name: 'Otros partidos' }];
+      const colors = buildScenarioSankeyColors(parties);
+      for (const [index, party] of parties.entries()) {
+        expect(colors[index * 2].name).toBe(`Origen: ${party.name}`);
+        expect(colors[index * 2 + 1].name).toBe(`Destino: ${party.name}`);
+        expect(colors[index * 2].value).toBe(colors[index * 2 + 1].value);
+      }
+      expect(new Set(colors.map(({ value }) => value)).size).toBe(parties.length);
+      expect(buildScenarioSankeyColors(parties)).toEqual(colors);
+    });
+
+    it('does not repeat colors when the party count exceeds a typical categorical palette', () => {
+      const parties = Array.from({ length: 30 }, (_, index) => ({ id: `${index}`, name: `Partido ${index}` }));
+      const colors = buildScenarioSankeyColors(parties);
+      expect(new Set(colors.map(({ value }) => value)).size).toBe(parties.length);
+    });
   });
 });

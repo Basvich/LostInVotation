@@ -95,7 +95,7 @@
               aria-label="Diagrama Sankey de votos transferidos entre partidos"
               tabindex="0"
             >
-              <ngx-charts-sankey [results]="sankeyLinks()" [showLabels]="true"></ngx-charts-sankey>
+              <ngx-charts-sankey [results]="sankeyLinks()" [customColors]="sankeyColors()" [showLabels]="true"></ngx-charts-sankey>
             </div>
           } @else {
             <p class="empty-state">

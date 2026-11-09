@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { RouterLink } from '@angular/router';
 import { SankeyModule } from '@swimlane/ngx-charts';
 import { buildPartyOrder, buildVisibleDestinationIndices } from '../../../core/analysis/scenario-matrix';
-import { buildScenarioSankeyLinks, ScenarioDisplayMode } from '../../../core/analysis/scenario-sankey';
+import { buildScenarioSankeyColors, buildScenarioSankeyLinks, ScenarioDisplayMode } from '../../../core/analysis/scenario-sankey';
 import {
   buildScenarioStatsMatrix,
   STAT_METRIC_LABELS,
@@ -54,6 +54,7 @@ export class ScenarioStatsPage {
   protected readonly partyOrder = computed(() =>
     buildPartyOrder(this.input().oldVotation, this.input().newVotation, this.scenarios()),
   );
+  protected readonly sankeyColors = computed(() => buildScenarioSankeyColors(this.partyOrder()));
 
   protected readonly visibleColumnIndices = computed(() =>
     buildVisibleDestinationIndices(this.partyOrder(), this.input().newVotation, this.scenarios()),

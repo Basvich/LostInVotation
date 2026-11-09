@@ -16,6 +16,9 @@ partidos por debajo del umbral se agrupan en «Otros partidos». Un partido que
 alcanza exactamente el umbral permanece separado. «No Votando» se mantiene
 independiente de esta agrupación.
 
+En los diagramas Sankey, un mismo partido utiliza el mismo color en origen y
+destino; los colores se mantienen al cambiar de escenario o de estadístico.
+
 ## Development server
 
 To start a local development server, run:

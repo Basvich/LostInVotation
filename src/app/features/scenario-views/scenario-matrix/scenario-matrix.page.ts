@@ -12,7 +12,7 @@ import {
   buildVisibleDestinationIndices,
   sortScenariosByPartyChanges,
 } from '../../../core/analysis/scenario-matrix';
-import { buildScenarioSankeyLinks, ScenarioDisplayMode } from '../../../core/analysis/scenario-sankey';
+import { buildScenarioSankeyColors, buildScenarioSankeyLinks, ScenarioDisplayMode } from '../../../core/analysis/scenario-sankey';
 import { VoteFlowAnalysisStore } from '../../../core/state/vote-flow-analysis.store';
 
 /** Fila de la tabla: partido origen + celdas (una por partido destino) + total de fila. */
@@ -51,6 +51,7 @@ export class ScenarioMatrixPage {
   protected readonly partyOrder = computed(() =>
     buildPartyOrder(this.input().oldVotation, this.input().newVotation, this.scenarios()),
   );
+  protected readonly sankeyColors = computed(() => buildScenarioSankeyColors(this.partyOrder()));
 
   /** Escenarios ordenados de mayor a menor cambio en el partido más votado, y así sucesivamente. */
   protected readonly orderedScenarios = computed(() =>

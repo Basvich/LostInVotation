@@ -8,6 +8,26 @@ export interface IScenarioSankeyLink {
   value: number;
 }
 
+export interface IScenarioSankeyColor {
+  name: string;
+  value: string;
+}
+
+function nodeName(side: 'Origen' | 'Destino', party: IParty): string {
+  return `${side}: ${party.name}`;
+}
+
+export function buildScenarioSankeyColors(parties: IParty[]): IScenarioSankeyColor[] {
+  return parties.flatMap((party, index) => {
+    const hue = (index * 137.508) % 360;
+    const value = `hsl(${hue.toFixed(3)}, 65%, 40%)`;
+    return [
+      { name: nodeName('Origen', party), value },
+      { name: nodeName('Destino', party), value },
+    ];
+  });
+}
+
 export function buildScenarioSankeyLinks(
   sourceParties: IParty[],
   targetParties: IParty[],
@@ -19,8 +39,8 @@ export function buildScenarioSankeyLinks(
       if (!(value > 0)) return [];
       return [
         {
-          source: `Origen: ${source.name}`,
-          target: `Destino: ${target.name}`,
+          source: nodeName('Origen', source),
+          target: nodeName('Destino', target),
           value,
         },
       ];
