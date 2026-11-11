@@ -1,0 +1,480 @@
+{
+  "votation": {
+    "date": "2019-04-01T00:00:00.000Z",
+    "name": "Congreso 2019 Abr",
+    "zone": "espana"
+  },
+  "votesToParties": [
+    {
+      "numberOfVotes": 7513142,
+      "party": {
+        "id": "partido-socialista-obrero-espanol",
+        "name": "PARTIDO SOCIALISTA OBRERO ESPAÑOL"
+      }
+    },
+    {
+      "numberOfVotes": 4373653,
+      "party": {
+        "id": "partido-popular",
+        "name": "PARTIDO POPULAR"
+      }
+    },
+    {
+      "numberOfVotes": 4155665,
+      "party": {
+        "id": "ciudadanos-partido-de-la-ciudadania",
+        "name": "CIUDADANOS-PARTIDO DE LA CIUDADANÍA"
+      }
+    },
+    {
+      "numberOfVotes": 2897419,
+      "party": {
+        "id": "unidas-podemos",
+        "name": "UNIDAS PODEMOS"
+      }
+    },
+    {
+      "numberOfVotes": 2688092,
+      "party": {
+        "id": "vox",
+        "name": "VOX"
+      }
+    },
+    {
+      "numberOfVotes": 1020392,
+      "party": {
+        "id": "esquerra-republicana-de-catalunya-sobiranistes",
+        "name": "ESQUERRA REPUBLICANA DE CATALUNYA-SOBIRANISTES"
+      }
+    },
+    {
+      "numberOfVotes": 615665,
+      "party": {
+        "id": "en-comu-podem-guanyem-el-canvi",
+        "name": "EN COMÚ PODEM - GUANYEM EL CANVI"
+      }
+    },
+    {
+      "numberOfVotes": 500787,
+      "party": {
+        "id": "junts-per-catalunya-junts",
+        "name": "JUNTS PER CATALUNYA-JUNTS"
+      }
+    },
+    {
+      "numberOfVotes": 395884,
+      "party": {
+        "id": "euzko-alderdi-jeltzalea-partido-nacionalista-vasco",
+        "name": "EUZKO ALDERDI JELTZALEA-PARTIDO NACIONALISTA VASCO"
+      }
+    },
+    {
+      "numberOfVotes": 328299,
+      "party": {
+        "id": "partido-animalista-contra-el-maltrato-animal",
+        "name": "PARTIDO ANIMALISTA CONTRA EL MALTRATO ANIMAL"
+      }
+    },
+    {
+      "numberOfVotes": 259647,
+      "party": {
+        "id": "euskal-herria-bildu",
+        "name": "EUSKAL HERRIA BILDU"
+      }
+    },
+    {
+      "numberOfVotes": 238061,
+      "party": {
+        "id": "en-comun-unidas-podemos",
+        "name": "EN COMÚN-UNIDAS PODEMOS"
+      }
+    },
+    {
+      "numberOfVotes": 173821,
+      "party": {
+        "id": "compromis-bloc-iniciativa-verdsequo",
+        "name": "COMPROMÍS: BLOC-INICIATIVA-VERDSEQUO"
+      }
+    },
+    {
+      "numberOfVotes": 137664,
+      "party": {
+        "id": "coalicion-canaria-partido-nacionalista-canario",
+        "name": "COALICION CANARIA-PARTIDO NACIONALISTA CANARIO"
+      }
+    },
+    {
+      "numberOfVotes": 113807,
+      "party": {
+        "id": "poble-lliure-som-alternativa-pirates-de-catalu",
+        "name": "POBLE LLIURE - SOM ALTERNATIVA - PIRATES DE CATALU"
+      }
+    },
+    {
+      "numberOfVotes": 107619,
+      "party": {
+        "id": "navarra-suma",
+        "name": "NAVARRA SUMA"
+      }
+    },
+    {
+      "numberOfVotes": 94433,
+      "party": {
+        "id": "bloque-nacionalista-galego",
+        "name": "BLOQUE NACIONALISTA GALEGO"
+      }
+    },
+    {
+      "numberOfVotes": 52266,
+      "party": {
+        "id": "partido-regionalista-de-cantabria",
+        "name": "PARTIDO REGIONALISTA DE CANTABRIA"
+      }
+    },
+    {
+      "numberOfVotes": 47363,
+      "party": {
+        "id": "recortes-cero-grupo-verde",
+        "name": "RECORTES CERO-GRUPO VERDE"
+      }
+    },
+    {
+      "numberOfVotes": 36225,
+      "party": {
+        "id": "nueva-canarias",
+        "name": "NUEVA CANARIAS"
+      }
+    },
+    {
+      "numberOfVotes": 30236,
+      "party": {
+        "id": "actua",
+        "name": "ACTÚA"
+      }
+    },
+    {
+      "numberOfVotes": 25191,
+      "party": {
+        "id": "veus-progressistes",
+        "name": "Veus PROGRESSISTES"
+      }
+    },
+    {
+      "numberOfVotes": 22309,
+      "party": {
+        "id": "geroa-bai",
+        "name": "GEROA BAI"
+      }
+    },
+    {
+      "numberOfVotes": 21863,
+      "party": {
+        "id": "por-un-mundo-mas-justo",
+        "name": "POR UN MUNDO MÁS JUSTO"
+      }
+    },
+    {
+      "numberOfVotes": 17899,
+      "party": {
+        "id": "en-marea",
+        "name": "EN MAREA"
+      }
+    },
+    {
+      "numberOfVotes": 14022,
+      "party": {
+        "id": "partido-comunista-de-los-trabajadores-de-espana",
+        "name": "PARTIDO COMUNISTA DE LOS TRABAJADORES DE ESPAÑA"
+      }
+    },
+    {
+      "numberOfVotes": 11692,
+      "party": {
+        "id": "el-pi-proposta-per-les-illes-balears",
+        "name": "EL PI - PROPOSTA PER LES ILLES BALEARS"
+      }
+    },
+    {
+      "numberOfVotes": 11407,
+      "party": {
+        "id": "andalucia-por-si",
+        "name": "ANDALUCÍA POR SÍ"
+      }
+    },
+    {
+      "numberOfVotes": 9130,
+      "party": {
+        "id": "partido-comunista-obrero-espanol",
+        "name": "PARTIDO COMUNISTA OBRERO ESPAÑOL"
+      }
+    },
+    {
+      "numberOfVotes": 8991,
+      "party": {
+        "id": "partido-comunista-de-los-pueblos-de-espana",
+        "name": "PARTIDO COMUNISTA DE LOS PUEBLOS DE ESPAÑA"
+      }
+    },
+    {
+      "numberOfVotes": 7332,
+      "party": {
+        "id": "avant-adelante-los-verdes",
+        "name": "AVANT ADELANTE LOS VERDES"
+      }
+    },
+    {
+      "numberOfVotes": 7072,
+      "party": {
+        "id": "escanos-en-blanco",
+        "name": "ESCAÑOS EN BLANCO"
+      }
+    },
+    {
+      "numberOfVotes": 6857,
+      "party": {
+        "id": "coalicion-por-melilla",
+        "name": "COALICION POR MELILLA"
+      }
+    },
+    {
+      "numberOfVotes": 4976,
+      "party": {
+        "id": "somos-region",
+        "name": "SOMOS REGIÓN"
+      }
+    },
+    {
+      "numberOfVotes": 4697,
+      "party": {
+        "id": "partido-comunista-del-pueblo-andaluz",
+        "name": "PARTIDO COMUNISTA DEL PUEBLO ANDALUZ"
+      }
+    },
+    {
+      "numberOfVotes": 4495,
+      "party": {
+        "id": "partido-humanista",
+        "name": "PARTIDO HUMANISTA"
+      }
+    },
+    {
+      "numberOfVotes": 4473,
+      "party": {
+        "id": "som-valencians-en-moviment",
+        "name": "SOM VALENCIANS EN MOVIMENT"
+      }
+    },
+    {
+      "numberOfVotes": 4236,
+      "party": {
+        "id": "esquerra-republicana-del-pais-valencia",
+        "name": "ESQUERRA REPUBLICANA DEL PAÍS VALENCIÀ"
+      }
+    },
+    {
+      "numberOfVotes": 3503,
+      "party": {
+        "id": "izquierda-en-positivo",
+        "name": "IZQUIERDA EN POSITIVO"
+      }
+    },
+    {
+      "numberOfVotes": 3373,
+      "party": {
+        "id": "partit-comunista-del-poble-de-catalunya",
+        "name": "PARTIT COMUNISTA DEL POBLE DE CATALUNYA"
+      }
+    },
+    {
+      "numberOfVotes": 3037,
+      "party": {
+        "id": "ahora-canarias-alternativa-nacionalista-canaria-anc-y-unidad-del-pueblo",
+        "name": "AHORA CANARIAS: Alternativa Nacionalista Canaria ANC y Unidad del Pueblo"
+      }
+    },
+    {
+      "numberOfVotes": 2760,
+      "party": {
+        "id": "compromiso-por-galicia",
+        "name": "COMPROMISO POR GALICIA"
+      }
+    },
+    {
+      "numberOfVotes": 2663,
+      "party": {
+        "id": "plataforma-del-pueblo-soriano",
+        "name": "PLATAFORMA DEL PUEBLO SORIANO"
+      }
+    },
+    {
+      "numberOfVotes": 2541,
+      "party": {
+        "id": "convergents",
+        "name": "CONVERGENTS"
+      }
+    },
+    {
+      "numberOfVotes": 2190,
+      "party": {
+        "id": "partido-regionalista-del-pais-leones",
+        "name": "PARTIDO REGIONALISTA DEL PAIS LEONES"
+      }
+    },
+    {
+      "numberOfVotes": 2150,
+      "party": {
+        "id": "extremenos-prex-crex",
+        "name": "EXTREMEÑOS PREX CREX"
+      }
+    },
+    {
+      "numberOfVotes": 2098,
+      "party": {
+        "id": "partido-riojano",
+        "name": "PARTIDO RIOJANO"
+      }
+    },
+    {
+      "numberOfVotes": 1216,
+      "party": {
+        "id": "partido-libertario",
+        "name": "PARTIDO LIBERTARIO"
+      }
+    },
+    {
+      "numberOfVotes": 1081,
+      "party": {
+        "id": "ciudadanos-independientes-de-linares-unidos",
+        "name": "CIUDADANOS INDEPENDIENTES DE LINARES UNIDOS"
+      }
+    },
+    {
+      "numberOfVotes": 932,
+      "party": {
+        "id": "andecha-astur",
+        "name": "ANDECHA ASTUR"
+      }
+    },
+    {
+      "numberOfVotes": 876,
+      "party": {
+        "id": "partido-de-jubilados-por-el-futuro-dignidad-y-democracia",
+        "name": "PARTIDO DE JUBILADOS POR EL FUTURO. DIGNIDAD Y DEMOCRACIA"
+      }
+    },
+    {
+      "numberOfVotes": 835,
+      "party": {
+        "id": "puyalon",
+        "name": "PUYALON"
+      }
+    },
+    {
+      "numberOfVotes": 785,
+      "party": {
+        "id": "federacion-de-los-independientes-de-aragon",
+        "name": "FEDERACION DE LOS INDEPENDIENTES DE ARAGON"
+      }
+    },
+    {
+      "numberOfVotes": 646,
+      "party": {
+        "id": "falange-espanola-de-las-jons",
+        "name": "FALANGE ESPAÑOLA DE LAS JONS"
+      }
+    },
+    {
+      "numberOfVotes": 571,
+      "party": {
+        "id": "feminism8",
+        "name": "FEMINISM8"
+      }
+    },
+    {
+      "numberOfVotes": 528,
+      "party": {
+        "id": "partido-de-accion-solidaria-europea",
+        "name": "PARTIDO DE ACCIÓN SOLIDARIA EUROPEA"
+      }
+    },
+    {
+      "numberOfVotes": 504,
+      "party": {
+        "id": "democracia-plural",
+        "name": "DEMOCRACIA PLURAL"
+      }
+    },
+    {
+      "numberOfVotes": 490,
+      "party": {
+        "id": "union-regionalista-de-castilla-y-leon",
+        "name": "UNIÓN REGIONALISTA DE CASTILLA Y LEÓN"
+      }
+    },
+    {
+      "numberOfVotes": 459,
+      "party": {
+        "id": "centrados",
+        "name": "CENTRADOS"
+      }
+    },
+    {
+      "numberOfVotes": 335,
+      "party": {
+        "id": "vivir-ourense",
+        "name": "VIVIR OURENSE"
+      }
+    },
+    {
+      "numberOfVotes": 308,
+      "party": {
+        "id": "defensa-de-lo-publico",
+        "name": "DEFENSA DE LO PÚBLICO"
+      }
+    },
+    {
+      "numberOfVotes": 277,
+      "party": {
+        "id": "partido-democrata-social-jubilados-europeos-unid",
+        "name": "PARTIDO DEMÓCRATA SOCIAL JUBILADOS EUROPEOS - UNID"
+      }
+    },
+    {
+      "numberOfVotes": 257,
+      "party": {
+        "id": "izquierda-anticapitalista-revolucionaria",
+        "name": "IZQUIERDA ANTICAPITALISTA REVOLUCIONARIA"
+      }
+    },
+    {
+      "numberOfVotes": 190,
+      "party": {
+        "id": "partido-republicano-independiente-solidario-andaluz",
+        "name": "PARTIDO REPUBLICANO INDEPENDIENTE SOLIDARIO ANDALUZ"
+      }
+    },
+    {
+      "numberOfVotes": 73,
+      "party": {
+        "id": "converxencia-21",
+        "name": "CONVERXENCIA 21"
+      }
+    },
+    {
+      "numberOfVotes": 47,
+      "party": {
+        "id": "muerte-al-sistema",
+        "name": "MUERTE AL SISTEMA"
+      }
+    },
+    {
+      "numberOfVotes": 28,
+      "party": {
+        "id": "union-de-todos",
+        "name": "UNIÓN DE TODOS"
+      }
+    }
+  ],
+  "totalVotes": 36898883,
+  "totalVotesToParties": 26001535
+}

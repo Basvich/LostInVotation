@@ -12,7 +12,26 @@
           "name":"Parlamento 2022",
           "link":"votations/andalucia.2022.json"
         }
+      ]          
+    },
+    {
+      "zone":"Nacional",
+      "votations":[
+        {
+          "date":"2019-11-10",
+          "name":"Congreso 2019 Noviembre",
+          "link":"votations/estadisticas.congreso.201911.json"
+        },
+        {
+          "date":"2019-04-28",
+          "name":"Congreso 2019 Abril",
+          "link":"votations/estadisticas.congreso.201904.json"
+        },
+        {
+          "date":"2023-07-01",
+          "name":"Congreso 2023 Julio",
+          "link":"votations/estadisticas.congreso.202307.json"
+        }
       ]
-          
     }
   ]
