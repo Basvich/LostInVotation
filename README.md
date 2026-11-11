@@ -109,6 +109,28 @@ Additional options:
 npm run import:votations -- --input src/assets/data/votations --output public/data/votations
 ```
 
+## Importar estadísticas CSV
+
+Para importar un CSV de estadísticas de candidaturas, proporciona la fecha
+(año y mes), la zona, el nombre de la votación y el total de votos
+contabilizados, incluidos blancos y nulos. El CSV no contiene este total y los
+porcentajes redondeados no permiten reconstruirlo con precisión.
+
+```bash
+npm run import:votations:csv -- --file src/assets/data/votations/estadisticas.congreso.202307.csv --date 2023-07 --zone "España" --name "Congreso 2023" --total-votes <total-contabilizado>
+```
+
+El JSON se escribe en `src/assets/data/votations/json` con el nombre del archivo
+original. Usa `--output <directorio>` para cambiar el destino o `--compact`
+para escribir JSON sin formato. La fecha se guarda como el primer día del mes
+en UTC; la zona y los identificadores de candidaturas se normalizan igual que
+en el importador XML. El CSV debe contener una única convocatoria y ámbito
+geográfico, sin candidaturas duplicadas. El total de votos a candidaturas se
+calcula sumando sus votos y no puede superar el total contabilizado.
+
+La conversión no añade automáticamente la votación al catálogo
+`public/data/availableVotations.json`.
+
 ## Running end-to-end tests
 
 For end-to-end (e2e) testing, run:

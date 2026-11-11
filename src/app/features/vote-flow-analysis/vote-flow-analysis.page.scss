@@ -40,6 +40,11 @@
   font-size: 1.5rem;
 }
 
+.dialog-heading h2 {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 .status-pill {
   display: inline-flex;
   align-items: center;
@@ -56,11 +61,57 @@
   color: #b91c1c;
 }
 
-.summary-grid,
-.dialog-grid {
+.summary-grid {
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+}
+
+.dialog-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 1rem;
+}
+
+.dialog-grid mat-form-field {
+  width: 100%;
+}
+
+.dialog-full-width,
+.dialog-section-title {
+  grid-column: 1 / -1;
+}
+
+.dialog-section-title {
+  margin: 0;
+  color: var(--mat-sys-on-surface-variant, #444);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.dialog-section-title:not(:first-child) {
+  margin-top: 0.5rem;
+}
+
+.dialog-option {
+  padding: 0.5rem 1rem 0.75rem;
+  border: 1px solid var(--mat-sys-outline-variant, #c4c7c5);
+  border-radius: 0.75rem;
+  background: var(--mat-sys-surface-container-low, #f7f9f8);
+}
+
+.dialog-option p {
+  margin: 0 0 0 2.5rem;
+  color: var(--mat-sys-on-surface-variant, #444);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 40rem) {
+  .dialog-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .summary-grid article {

@@ -1,6 +1,7 @@
 import { XMLParser } from 'fast-xml-parser';
 import { IVotesToParty, IVotationResult } from '../models/party';
 import { ImportSourceMetadata, VotationImporter } from './votation-importer';
+import { slugify } from './slugify';
 
 type NumericValue = string | number | undefined;
 
@@ -75,7 +76,7 @@ export class XmlVotationImporter implements VotationImporter {
         // in different elections, so it cannot identify the same party across votations. The
         // slugified party name is used instead as a stable identifier to match parties over time.
         party: {
-          id: this.slugify(name),
+          id: slugify(name),
           name,
         },
       };
@@ -90,7 +91,7 @@ export class XmlVotationImporter implements VotationImporter {
       votation: {
         date: new Date(Date.UTC(year, 0, 1)),
         name: `${locationName} ${year}`,
-        zone: this.slugify(zoneLabel),
+        zone: slugify(zoneLabel),
       },
       votesToParties,
       totalVotes,
@@ -118,14 +119,6 @@ export class XmlVotationImporter implements VotationImporter {
     }
 
     return text;
-  }
-
-  private slugify(value: string): string {
-    const withoutAccents = value.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-    return withoutAccents
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-+|-+$/g, '');
   }
 
   private buildError(message: string, metadata?: ImportSourceMetadata): string {

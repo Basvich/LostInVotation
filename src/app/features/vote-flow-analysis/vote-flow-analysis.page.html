@@ -58,7 +58,8 @@
       <button mat-icon-button type="button" aria-label="Cerrar diálogo" (click)="closeDialog()">×</button>
     </div>
     <mat-dialog-content class="dialog-grid">
-      <mat-form-field>
+      <h3 class="dialog-section-title">Votaciones</h3>
+      <mat-form-field class="dialog-full-width" subscriptSizing="dynamic">
         <mat-label>Zona</mat-label>
         <mat-select
           [ngModel]="selection().zone"
@@ -71,7 +72,7 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field subscriptSizing="dynamic">
         <mat-label>Votación antigua</mat-label>
         <mat-select
           [ngModel]="selection().oldLink"
@@ -85,7 +86,7 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field subscriptSizing="dynamic">
         <mat-label>Votación nueva</mat-label>
         <mat-select
           [ngModel]="selection().newLink"
@@ -99,6 +100,7 @@
         </mat-select>
       </mat-form-field>
 
+      <h3 class="dialog-section-title">Opciones del análisis</h3>
       <mat-form-field subscriptSizing="dynamic">
         <mat-label>Fidelidad global</mat-label>
         <input matInput type="number" required
@@ -129,7 +131,7 @@
         }
       </mat-form-field>
 
-      <mat-form-field subscriptSizing="dynamic">
+      <mat-form-field class="dialog-full-width" subscriptSizing="dynamic">
         <mat-label>Porcentaje mínimo por partido (%)</mat-label>
         <input matInput type="number" required
           [min]="0"
@@ -144,7 +146,7 @@
           <mat-error>Introduce un porcentaje entre 0 y 100 con hasta dos decimales.</mat-error>
         }
       </mat-form-field>
-      <div>
+      <div class="dialog-option dialog-full-width">
         <mat-checkbox
           [checked]="simplifyReciprocalFlows()"
           (change)="simplifyReciprocalFlows.set($event.checked)"
