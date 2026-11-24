@@ -1,0 +1,424 @@
+{
+  "votation": {
+    "date": "2023-07-01T00:00:00.000Z",
+    "name": "Congreso 2023",
+    "zone": "espana"
+  },
+  "votesToParties": [
+    {
+      "numberOfVotes": 8160837,
+      "party": {
+        "id": "partido-popular",
+        "name": "PARTIDO POPULAR"
+      }
+    },
+    {
+      "numberOfVotes": 7821718,
+      "party": {
+        "id": "partido-socialista-obrero-espanol",
+        "name": "PARTIDO SOCIALISTA OBRERO ESPAÑOL"
+      }
+    },
+    {
+      "numberOfVotes": 3057000,
+      "party": {
+        "id": "vox",
+        "name": "VOX"
+      }
+    },
+    {
+      "numberOfVotes": 3044996,
+      "party": {
+        "id": "sumar",
+        "name": "SUMAR"
+      }
+    },
+    {
+      "numberOfVotes": 466020,
+      "party": {
+        "id": "esquerra-republicana-de-catalunya",
+        "name": "ESQUERRA REPUBLICANA DE CATALUNYA"
+      }
+    },
+    {
+      "numberOfVotes": 395429,
+      "party": {
+        "id": "junts-per-catalunya-junts",
+        "name": "JUNTS PER CATALUNYA - JUNTS"
+      }
+    },
+    {
+      "numberOfVotes": 335129,
+      "party": {
+        "id": "euskal-herria-bildu",
+        "name": "EUSKAL HERRIA BILDU"
+      }
+    },
+    {
+      "numberOfVotes": 277289,
+      "party": {
+        "id": "euzko-alderdi-jeltzalea-partido-nacionalista-vasco",
+        "name": "EUZKO ALDERDI JELTZALEA-PARTIDO NACIONALISTA VASCO"
+      }
+    },
+    {
+      "numberOfVotes": 169237,
+      "party": {
+        "id": "partido-animalista-con-el-medio-ambiente",
+        "name": "PARTIDO ANIMALISTA CON EL MEDIO AMBIENTE"
+      }
+    },
+    {
+      "numberOfVotes": 153995,
+      "party": {
+        "id": "bloque-nacionalista-galego",
+        "name": "BLOQUE NACIONALISTA GALEGO"
+      }
+    },
+    {
+      "numberOfVotes": 116363,
+      "party": {
+        "id": "coalicion-canaria",
+        "name": "COALICIÓN CANARIA"
+      }
+    },
+    {
+      "numberOfVotes": 99644,
+      "party": {
+        "id": "candidatura-d-unitat-popular-per-la-ruptura",
+        "name": "CANDIDATURA D'UNITAT POPULAR-PER LA RUPTURA"
+      }
+    },
+    {
+      "numberOfVotes": 52188,
+      "party": {
+        "id": "union-del-pueblo-navarro",
+        "name": "UNION DEL PUEBLO NAVARRO"
+      }
+    },
+    {
+      "numberOfVotes": 46274,
+      "party": {
+        "id": "frente-obrero",
+        "name": "FRENTE OBRERO"
+      }
+    },
+    {
+      "numberOfVotes": 45595,
+      "party": {
+        "id": "nueva-canarias-bloque-canarista",
+        "name": "NUEVA CANARIAS - BLOQUE CANARISTA"
+      }
+    },
+    {
+      "numberOfVotes": 32016,
+      "party": {
+        "id": "partit-democrata-europeu-catala-espai-ciu",
+        "name": "PARTIT DEMÒCRATA EUROPEU CATALÀ-ESPAI CIU"
+      }
+    },
+    {
+      "numberOfVotes": 23421,
+      "party": {
+        "id": "recortes-cero",
+        "name": "RECORTES CERO"
+      }
+    },
+    {
+      "numberOfVotes": 23290,
+      "party": {
+        "id": "por-un-mundo-mas-justo",
+        "name": "POR UN MUNDO MÁS JUSTO"
+      }
+    },
+    {
+      "numberOfVotes": 23201,
+      "party": {
+        "id": "union-del-pueblo-leones",
+        "name": "UNIÓN DEL PUEBLO LEONÉS"
+      }
+    },
+    {
+      "numberOfVotes": 20440,
+      "party": {
+        "id": "aragon-existe-coalicion-existe",
+        "name": "ARAGÓN EXISTE - COALICIÓN EXISTE"
+      }
+    },
+    {
+      "numberOfVotes": 18218,
+      "party": {
+        "id": "partido-comunista-de-los-trabajadores-de-espana",
+        "name": "PARTIDO COMUNISTA DE LOS TRABAJADORES DE ESPAÑA"
+      }
+    },
+    {
+      "numberOfVotes": 9938,
+      "party": {
+        "id": "geroa-bai",
+        "name": "GEROA BAI"
+      }
+    },
+    {
+      "numberOfVotes": 9697,
+      "party": {
+        "id": "soria-ya",
+        "name": "SORIA ¡YA!"
+      }
+    },
+    {
+      "numberOfVotes": 9191,
+      "party": {
+        "id": "adelante-andalucia",
+        "name": "ADELANTE ANDALUCÍA"
+      }
+    },
+    {
+      "numberOfVotes": 8448,
+      "party": {
+        "id": "escanos-en-blanco-para-dejar-escanos-vacios",
+        "name": "ESCAÑOS EN BLANCO PARA DEJAR ESCAÑOS VACÍOS"
+      }
+    },
+    {
+      "numberOfVotes": 8293,
+      "party": {
+        "id": "jaen-merece-mas",
+        "name": "JAÉN MERECE MÁS"
+      }
+    },
+    {
+      "numberOfVotes": 7362,
+      "party": {
+        "id": "por-avila",
+        "name": "POR ÁVILA"
+      }
+    },
+    {
+      "numberOfVotes": 5807,
+      "party": {
+        "id": "bloque-extremeno",
+        "name": "BLOQUE EXTREMEÑO"
+      }
+    },
+    {
+      "numberOfVotes": 5620,
+      "party": {
+        "id": "caminando-juntos",
+        "name": "CAMINANDO JUNTOS"
+      }
+    },
+    {
+      "numberOfVotes": 4683,
+      "party": {
+        "id": "falange-espanola-de-las-j-o-n-s",
+        "name": "FALANGE ESPAÑOLA DE LAS J.O.N.S."
+      }
+    },
+    {
+      "numberOfVotes": 4173,
+      "party": {
+        "id": "partido-aragones",
+        "name": "PARTIDO ARAGONÉS"
+      }
+    },
+    {
+      "numberOfVotes": 3158,
+      "party": {
+        "id": "espana-vaciada",
+        "name": "ESPAÑA VACIADA"
+      }
+    },
+    {
+      "numberOfVotes": 2902,
+      "party": {
+        "id": "partido-humanista",
+        "name": "PARTIDO HUMANISTA"
+      }
+    },
+    {
+      "numberOfVotes": 2314,
+      "party": {
+        "id": "asturias-existe-espana-vaciada",
+        "name": "ASTURIAS EXISTE-ESPAÑA VACIADA"
+      }
+    },
+    {
+      "numberOfVotes": 1931,
+      "party": {
+        "id": "por-huelva",
+        "name": "POR HUELVA"
+      }
+    },
+    {
+      "numberOfVotes": 1917,
+      "party": {
+        "id": "vamos-palencia",
+        "name": "VAMOS PALENCIA"
+      }
+    },
+    {
+      "numberOfVotes": 1843,
+      "party": {
+        "id": "zamora-si",
+        "name": "ZAMORA SÍ"
+      }
+    },
+    {
+      "numberOfVotes": 1774,
+      "party": {
+        "id": "via-burgalesa",
+        "name": "VÍA BURGALESA"
+      }
+    },
+    {
+      "numberOfVotes": 1698,
+      "party": {
+        "id": "por-mi-region",
+        "name": "POR MI REGIÓN"
+      }
+    },
+    {
+      "numberOfVotes": 1674,
+      "party": {
+        "id": "ahora-canarias-partido-comunista-del-pueblo-canario",
+        "name": "AHORA CANARIAS-PARTIDO COMUNISTA DEL PUEBLO CANARIO"
+      }
+    },
+    {
+      "numberOfVotes": 1446,
+      "party": {
+        "id": "partido-autonomos",
+        "name": "PARTIDO AUTÓNOMOS"
+      }
+    },
+    {
+      "numberOfVotes": 1442,
+      "party": {
+        "id": "estat-valencia-del-benestar",
+        "name": "ESTAT VALENCIÀ DEL BENESTAR"
+      }
+    },
+    {
+      "numberOfVotes": 1298,
+      "party": {
+        "id": "coalicion-por-melilla",
+        "name": "COALICIÓN POR MELILLA"
+      }
+    },
+    {
+      "numberOfVotes": 1218,
+      "party": {
+        "id": "juntos-por-granada",
+        "name": "JUNTOS POR GRANADA"
+      }
+    },
+    {
+      "numberOfVotes": 1184,
+      "party": {
+        "id": "espana-vaciada-partido-castellano-tierra-comunera",
+        "name": "ESPAÑA VACIADA-PARTIDO CASTELLANO-TIERRA COMUNERA"
+      }
+    },
+    {
+      "numberOfVotes": 964,
+      "party": {
+        "id": "partido-regionalista-del-pais-leones",
+        "name": "PARTIDO REGIONALISTA DEL PAÍS LEONÉS"
+      }
+    },
+    {
+      "numberOfVotes": 963,
+      "party": {
+        "id": "somos-caceres",
+        "name": "SOMOS CÁCERES"
+      }
+    },
+    {
+      "numberOfVotes": 874,
+      "party": {
+        "id": "almerienses-regionalistas-pro-almeria",
+        "name": "ALMERIENSES - REGIONALISTAS PRO ALMERÍA"
+      }
+    },
+    {
+      "numberOfVotes": 506,
+      "party": {
+        "id": "federacion-de-los-independientes-de-aragon",
+        "name": "FEDERACIÓN DE LOS INDEPENDIENTES DE ARAGÓN"
+      }
+    },
+    {
+      "numberOfVotes": 484,
+      "party": {
+        "id": "tercera-edad-en-accion",
+        "name": "TERCERA EDAD EN ACCIÓN"
+      }
+    },
+    {
+      "numberOfVotes": 463,
+      "party": {
+        "id": "unidad-castellana",
+        "name": "UNIDAD CASTELLANA"
+      }
+    },
+    {
+      "numberOfVotes": 366,
+      "party": {
+        "id": "grupo-independiente-palencia-tierra-viva",
+        "name": "GRUPO INDEPENDIENTE PALENCIA TIERRA VIVA"
+      }
+    },
+    {
+      "numberOfVotes": 269,
+      "party": {
+        "id": "partido-unionista-estado-de-espana",
+        "name": "PARTIDO UNIONISTA ESTADO DE ESPAÑA"
+      }
+    },
+    {
+      "numberOfVotes": 265,
+      "party": {
+        "id": "entre-veins-catalunya",
+        "name": "ENTRE VEÏNS CATALUNYA"
+      }
+    },
+    {
+      "numberOfVotes": 263,
+      "party": {
+        "id": "libres",
+        "name": "LIBRES"
+      }
+    },
+    {
+      "numberOfVotes": 253,
+      "party": {
+        "id": "unidos-por-la-solidaridad-internacional",
+        "name": "UNIDOS POR LA SOLIDARIDAD INTERNACIONAL"
+      }
+    },
+    {
+      "numberOfVotes": 165,
+      "party": {
+        "id": "referendum-sistema-dinero",
+        "name": "REFERÉNDUM SISTEMA DINERO"
+      }
+    },
+    {
+      "numberOfVotes": 153,
+      "party": {
+        "id": "coalicion-de-centro-democratico",
+        "name": "COALICIÓN DE CENTRO DEMOCRÁTICO"
+      }
+    },
+    {
+      "numberOfVotes": 115,
+      "party": {
+        "id": "fuerza-civica",
+        "name": "FUERZA CÍVICA"
+      }
+    }
+  ],
+  "totalVotes": 37469458,
+  "totalVotesToParties": 24487414
+}
