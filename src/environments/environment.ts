@@ -1,10 +1,10 @@
 export const environment = {
   production: true,
-  baseUrl: '/data',
+  baseUrl: 'data',
   "version": "1.3.0",
   voteFlowAnalysis: {
-    defaultFidelityPercentage: 0.5,
-    defaultScenarioCount: 20,
+    defaultFidelityPercentage: 0.4,
+    defaultScenarioCount: 100,
     defaultMinimumPartyPercentage: 5,
     defaultSimplifyReciprocalFlows: true,
   },

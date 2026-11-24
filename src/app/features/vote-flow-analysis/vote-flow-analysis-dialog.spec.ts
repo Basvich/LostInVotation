@@ -167,7 +167,7 @@ describe('selection dialog', () => {
       expect(store.status()).toBe('done');
       expect(store.input().simplifyReciprocalFlows).toBe(true);
       expect(store.scenarios().every(({ flows }) =>
-        flows.length === 2 && flows.every((flow) => flow.from.id === flow.to.id && flow.votes === 50),
+        flows.length === 2 && flows.every((flow) => flow.from.id === flow.to.id && flow.votes === 100),
       )).toBe(true);
 
       open();

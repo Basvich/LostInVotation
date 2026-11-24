@@ -186,10 +186,10 @@ describe('scenario controls', () => {
       const fixture = TestBed.createComponent<ScenarioMatrixPage | ScenarioStatsPage>(page);
       await fixture.whenStable();
       const element = fixture.nativeElement as HTMLElement;
-      expect(element.textContent).toContain('inferiores a los votos originales');
+      expect(element.textContent).toContain('los votos compensados permanecen en sus respectivos partidos');
       store.setInput({ simplifyReciprocalFlows: false });
       await fixture.whenStable();
-      expect(element.textContent).not.toContain('inferiores a los votos originales');
+      expect(element.textContent).not.toContain('los votos compensados permanecen en sus respectivos partidos');
     },
   );
 });

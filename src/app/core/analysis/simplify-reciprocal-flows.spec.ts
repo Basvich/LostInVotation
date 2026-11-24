@@ -23,12 +23,22 @@ describe('simplifyReciprocalFlows', () => {
     ];
     const original = flows.map((flow) => ({ ...flow }));
     const result = simplifyReciprocalFlows(flows);
-    expect(result).toHaveLength(5);
+    expect(result).toHaveLength(7);
     expect(result).toContainEqual({ from: a, to: b, votes: 5 });
     expect(result).toContainEqual({ from: c, to: b, votes: 5 });
-    expect(result).toContainEqual({ from: a, to: a, votes: 20 });
-    expect(result).toContainEqual({ from: b, to: b, votes: 3 });
+    expect(result).toContainEqual({ from: a, to: a, votes: 33 });
+    expect(result).toContainEqual({ from: b, to: b, votes: 12 });
+    expect(result).toContainEqual({ from: c, to: c, votes: 10 });
+    expect(result).toContainEqual({ from: notVoting, to: notVoting, votes: 2 });
     expect(result).toContainEqual({ from: a, to: notVoting, votes: 5 });
+    for (const party of [a, b, c, notVoting]) {
+      for (const side of ['from', 'to'] as const) {
+        const total = (entries: IPartyFlow[]) => entries
+          .filter((flow) => flow[side].id === party.id)
+          .reduce((sum, flow) => sum + flow.votes, 0);
+        expect(total(result)).toBe(total(flows));
+      }
+    }
     expect(flows).toEqual(original);
   });
 
@@ -40,7 +50,10 @@ describe('simplifyReciprocalFlows', () => {
     expect(simplifyReciprocalFlows([
       { from: a, to: b, votes: 5 },
       { from: b, to: a, votes: 5 },
-    ])).toEqual([]);
+    ])).toEqual([
+      { from: a, to: a, votes: 5 },
+      { from: b, to: b, votes: 5 },
+    ]);
   });
 
   it('preserves each party’s net change and distinguishes IDs containing separators', () => {
@@ -62,6 +75,21 @@ describe('simplifyReciprocalFlows', () => {
     for (const party of [first, second, third]) {
       expect(netChange(simplified, party.id)).toBe(netChange(flows, party.id));
     }
-    expect(simplified).toHaveLength(3);
+    expect(simplified).toHaveLength(6);
+  });
+
+  it('uses the origin and destination identities for newly created diagonal flows', () => {
+    const oldA = { id: 'a', name: 'A antigua' };
+    const newA = { id: 'a', name: 'A nueva' };
+    const oldB = { id: 'b', name: 'B antigua' };
+    const newB = { id: 'b', name: 'B nueva' };
+    expect(simplifyReciprocalFlows([
+      { from: oldA, to: newB, votes: 3 },
+      { from: oldB, to: newA, votes: 2 },
+    ])).toEqual([
+      { from: oldA, to: newB, votes: 1 },
+      { from: oldA, to: newA, votes: 2 },
+      { from: oldB, to: newB, votes: 2 },
+    ]);
   });
 });

@@ -7,7 +7,7 @@ export interface IVoteFlowInput {
   fidelityPercentage: number;
   /** Tamaño de bloque para la distribución aleatoria. Por defecto 1000. */
   blockSize?: number;
-  /** Compensar flujos recíprocos entre cada par de partidos. Por defecto true. */
+  /** Compensar flujos recíprocos y asignar los votos compensados a cada partido. Por defecto true. */
   simplifyReciprocalFlows?: boolean;
 }
 
@@ -18,6 +18,6 @@ export interface IPartyFlow {
 }
 
 export interface IVoteFlowScenario {
-  /** Flujos entre partidos; si se simplifican, los totales reflejan flujos netos, no votos originales. */
+  /** Flujos entre partidos; sus totales de origen y destino se conservan al simplificar. */
   flows: IPartyFlow[];
 }

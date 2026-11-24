@@ -23,11 +23,11 @@ destino; los colores se mantienen al cambiar de escenario o de estadístico.
 
 La opción «Simplificar flujos recíprocos» está activada por defecto. Tras generar
 cada escenario se compensan los flujos en sentidos opuestos entre cada par de
-partidos, incluidos «Otros partidos» y «No Votando». Solo se conserva la
-diferencia en el sentido mayor; los flujos hacia el mismo partido no cambian.
-Los escenarios y sus estadísticas muestran, por tanto, flujos netos: los totales
-de filas y columnas pueden ser inferiores a los votos originales. Desactiva la
-opción para conservar los flujos completos sin compensar.
+partidos, incluidos «Otros partidos» y «No Votando». Entre cada par se conserva
+la diferencia en el sentido mayor y los votos compensados se suman al flujo de
+permanencia de cada partido. Así se conservan los totales de origen y destino
+de cada escenario. Desactiva la opción para conservar los flujos completos sin
+compensar.
 
 ## Development server
 
@@ -62,6 +62,21 @@ ng build
 ```
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+
+## Publishing to GitHub Pages
+
+[angular-cli-ghpages](https://www.npmjs.com/package/angular-cli-ghpages#prerequisites)
+
+The `public` directory, including the sample files under `public/data`, is
+copied into the production build. The deployment target is configured with the
+`/LostInVotation/` base URL, so it can be published with:
+
+```bash
+ng deploy
+```
+
+The deployed application is available at
+[LostInVotation](https://basvich.github.io/LostInVotation).
 
 ## Running unit tests
 

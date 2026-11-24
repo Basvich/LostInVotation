@@ -61,14 +61,44 @@ describe('VoteFlowAnalyzer', () => {
       expect(simplified).toEqual(explicit);
       for (const scenario of simplified) {
         expect(scenario.flows).toEqual([
-          { from: pp, to: pp, votes: 50 },
-          { from: psoe, to: psoe, votes: 50 },
+          { from: pp, to: pp, votes: 100 },
+          { from: psoe, to: psoe, votes: 100 },
         ]);
       }
     } finally {
       random.mockRestore();
     }
   });
+
+  it('preserves per-party origin and destination totals in every simplified scenario', () => {
+    const input: IVoteFlowInput = {
+      oldVotation: makeVotation([{ party: pp, votes: 100 }, { party: psoe, votes: 100 }]),
+      newVotation: makeVotation([{ party: pp, votes: 80 }, { party: psoe, votes: 150 }]),
+      fidelityPercentage: 0.3,
+      blockSize: 1,
+    };
+    const random = vi.spyOn(Math, 'random').mockReturnValue(0.5);
+    try {
+      const original = engine.generateScenarios({ ...input, simplifyReciprocalFlows: false }, 5);
+      const simplified = engine.generateScenarios({ ...input, simplifyReciprocalFlows: true }, 5);
+      for (let index = 0; index < simplified.length; index++) {
+        for (const id of ['pp', 'psoe', 'not-voting']) {
+          expect(sumFrom(simplified[index].flows, id)).toBe(sumFrom(original[index].flows, id));
+          expect(sumTo(simplified[index].flows, id)).toBe(sumTo(original[index].flows, id));
+        }
+        for (const flow of simplified[index].flows) {
+          if (flow.from.id !== flow.to.id) {
+            expect(simplified[index].flows.some((reverse) =>
+              reverse.from.id === flow.to.id && reverse.to.id === flow.from.id,
+            )).toBe(false);
+          }
+        }
+      }
+    } finally {
+      random.mockRestore();
+    }
+  });
+
   describe('generateScenarios — invariants', () => {
     it('should return exactly the requested number of scenarios', () => {
       const input: IVoteFlowInput = {

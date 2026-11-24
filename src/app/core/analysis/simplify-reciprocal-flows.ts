@@ -17,15 +17,30 @@ export function simplifyReciprocalFlows(flows: IPartyFlow[]): IPartyFlow[] {
   }
 
   const simplified: IPartyFlow[] = [];
+  const diagonal = new Map<string, IPartyFlow>();
+  const addDiagonal = (flow: IPartyFlow) => {
+    const existing = diagonal.get(flow.from.id);
+    if (existing) {
+      existing.votes += flow.votes;
+    } else {
+      diagonal.set(flow.from.id, { ...flow });
+    }
+  };
+
   for (const [fromId, destinations] of byOrigin) {
     for (const [toId, flow] of destinations) {
       if (fromId === toId) {
-        simplified.push(flow);
+        addDiagonal(flow);
         continue;
       }
       const reverse = byOrigin.get(toId)?.get(fromId);
       if (reverse) {
         byOrigin.get(toId)?.delete(fromId);
+        const cancelledVotes = Math.min(flow.votes, reverse.votes);
+        if (cancelledVotes > 0) {
+          addDiagonal({ from: flow.from, to: reverse.to, votes: cancelledVotes });
+          addDiagonal({ from: reverse.from, to: flow.to, votes: cancelledVotes });
+        }
       }
       const difference = flow.votes - (reverse?.votes ?? 0);
       if (difference > 0) {
@@ -35,5 +50,5 @@ export function simplifyReciprocalFlows(flows: IPartyFlow[]): IPartyFlow[] {
       }
     }
   }
-  return simplified;
+  return [...simplified, ...diagonal.values()];
 }
